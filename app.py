@@ -1,4 +1,7 @@
 import os
+import base64
+import hashlib
+import hmac
 from flask import Flask, request, abort
 
 from linebot import (
@@ -14,24 +17,24 @@ from linebot.models import (
 app = Flask(__name__)
 
 line_bot_api = LineBotApi('AmWGLaN1W494BzGcEwrQ6rsYxHVvFdG/jx65lSlNb18H1IXcwSLsMMp1kLHPKScISdJbgat7FG7lpWHjJ34q4LZTYM1xtCFZcyp+EOn1O+ZkAjXubup19feb0VZIQ5XMPOWSU3Nv8h/Yrnc2aOKjcwdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('213b556081b80c24efef210f095697b8')
+channel_secret = '213b556081b80c24efef210f095697b8'
 
 
 @app.route("/callback", methods=['POST'])
 def callback():
     # Get X-Line-Signature header value
-    signature = request.headers['x-line-signature']
+    signature2 = request.headers['x-line-signature']
 
     # Get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
 
     # Handle webhook body
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
+    hash = hmac.new(channel_secret.encode('utf-8'),
+    body.encode('utf-8'), hashlib.sha256).digest()
+    signature1 = base64.b64encode(hash)
+    if signature2 != signature1:
         abort(400)
-
     return 'OK'
 
 
