@@ -7,7 +7,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate
+    MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackAction, MessageAction, URIAction
 )
 
 import os
@@ -47,7 +47,28 @@ def handle_message(event):
         replyMessage = "Round trip searches"
     if got_message == 'oneway' or got_message == 'one way' or got_message == 'one-way':
         replyMessage = "One way searches"
-    line_bot_api.reply_message(event.reply_token,TemplateSendMessage(alt_text="this is a template", template=ButtonsTemplate(thumbnail_image_url="https://www.youtube.com/")), timeout=5000)
+    line_bot_api.reply_message(event.reply_token,TemplateSendMessage(
+        alt_text='Buttons template',
+        template=ButtonsTemplate(
+            thumbnail_image_url='https://example.com/image.jpg',
+            title='Menu',
+            text='Please select',
+            actions=[
+                PostbackAction(
+                    label='postback',
+                    display_text='postback text',
+                    data='action=buy&itemid=1'            ),
+                MessageAction(
+                    label='message',
+                    text='message text'
+                ),
+                URIAction(
+                    label='uri',
+                    uri='http://example.com/'
+                )
+            ]
+        )
+    ), timeout=5000)
 
 
 if __name__ == "__main__":
