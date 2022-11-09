@@ -39,9 +39,17 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text))
+    got_message = event.message.text
+    replyMessage = "echo: "+got_message
+    if got_message == 'flight search':
+        replyMessage = "You want to search a flight for oneway or round trip?"
+    if got_message == 'round trip':
+        replyMessage = "Round trip searches"
+    if got_message == 'oneway' or got_message == 'one way' or got_message == 'one-way':
+        replyMessage = "One way searches"
+    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=replyMessage))
+    if got_message == 'round trip' or got_message == 'oneway' or got_message == 'one way' or got_message == 'one-way':
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text="Want to book any flight?"))
 
 
 if __name__ == "__main__":
