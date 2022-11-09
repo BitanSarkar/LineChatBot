@@ -47,7 +47,7 @@ def handle_message(event):
         replyMessage = "Round trip searches"
     if got_message == 'oneway' or got_message == 'one way' or got_message == 'one-way':
         replyMessage = "One way searches"
-    line_bot_api.reply_message(event.reply_token,[TemplateSendMessage(alt_text="this is a template", template=ButtonsTemplate(thumbnail_image_url="https://www.youtube.com/")), TextSendMessage(text=replyMessage)], timeout=5000)
+    line_bot_api.reply_message(event.reply_token,TemplateSendMessage(alt_text="this is a template", template=ButtonsTemplate(thumbnail_image_url="https://www.youtube.com/")), timeout=5000)
 
 
 if __name__ == "__main__":
