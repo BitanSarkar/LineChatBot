@@ -47,7 +47,7 @@ def handle_message(event):
         replyMessage = "Round trip searches"
     if got_message == 'oneway' or got_message == 'one way' or got_message == 'one-way':
         replyMessage = "One way searches"
-    line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=replyMessage), TextSendMessage(text="do you want to book this flight")], timeout=5)
+    line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=replyMessage), TextSendMessage(text="do you want to book this flight")], timeout=5000)
 
 
 if __name__ == "__main__":
