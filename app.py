@@ -78,17 +78,17 @@ def handle_message(event):
     last_message_info = {}
     if user_id in userData:
         last_message_info = userData[user_id]
-        if last_message_info["is_required"] and last_message_info["Do you wish to travel somewhere?"]:
+        if last_message_info["is_required"] and last_message_info["message"] == "Do you wish to travel somewhere?":
             if "yes" in got_message or "yup" in got_message:
                 userData[user_id] = {
-                    "last_message_info": "Where do you want to travel?",
+                    "message": "Where do you want to travel?",
                     "is_required": True
                 }
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Where do you want to travel?"))
-        if last_message_info["is_required"] and last_message_info["Where do you want to travel?"]:
+        if last_message_info["is_required"] and last_message_info["message"] == "Where do you want to travel?":
             if "yes" in got_message or "yup" in got_message:
                 userData[user_id] = {
-                    "last_message_info": "Where do you want to travel?",
+                    "message": "Where do you want to travel?",
                     "is_required": True
                 }
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Where do you want to travel?"))
@@ -99,7 +99,7 @@ def handle_message(event):
         if "flight" in got_message or "search" in got_message:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="So you are search for flights?"))
         userData[user_id] = {
-                "last_message_info": "Do you wish to travel somewhere?",
+                "message": "Do you wish to travel somewhere?",
                 "is_required": True
             }
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Do you wish to travel somewhere? \U0001f60d"))
