@@ -129,10 +129,10 @@ def handle_message(event):
                 "place": place,
                 "time": time,
                 "from_place": from_place,
-                "flight_search": flight[got_message-1],
+                "flight_search": flight[int(got_message)-1],
                 "is_required": True
             }
-            line_bot_api.reply_message(event.reply_token, messages=TextSendMessage(text=f"Are you sure you want to book {flight[got_message-1]} from {got_message.capitalize()} to {place.capitalize()} on {time.capitalize()}?\n\n\n\nSeamless booking for you, as you are a valued SCB customer!"))
+            line_bot_api.reply_message(event.reply_token, messages=TextSendMessage(text=f"Are you sure you want to book {flight[int(got_message)-1]} from {from_place.capitalize()} to {place.capitalize()} on {time.capitalize()}?\n\n\n\nSeamless booking for you, as you are a valued SCB customer!"))
         if last_message_info["is_required"] and last_message_info["message"] == "confirmation":
             place = last_message_info["place"]
             time = last_message_info["time"]
