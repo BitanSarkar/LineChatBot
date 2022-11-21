@@ -71,7 +71,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    print(event.source.userId)
+    print(event.source.user.user_id)
     got_message = event.message.text.lower()
     replyMessage = "Can't understand what you are trying to say! \U0001f615"
     if "hey" in got_message or "hello" in got_message  or "hi" in got_message :
