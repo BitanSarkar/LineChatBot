@@ -36,40 +36,55 @@ def callback():
 
     return 'OK'
 
+# @handler.add(MessageEvent, message=TextMessage)
+# def handle_message(event):
+#     got_message = event.message.text
+#     replyMessage = "echo: "+got_message
+#     if got_message == 'flight search':
+#         replyMessage = "You want to search a flight for oneway or round trip?"
+#     if got_message == 'round trip':
+#         replyMessage = "Round trip searches"
+#     if got_message == 'oneway' or got_message == 'one way' or got_message == 'one-way':
+#         replyMessage = "One way searches"
+#     line_bot_api.reply_message(event.reply_token,TemplateSendMessage(
+#         alt_text='Buttons template',
+#         template=ButtonsTemplate(
+#             thumbnail_image_url='https://example.com/image.jpg',
+#             title='Menu',
+#             text='Please select',
+#             actions=[
+#                 PostbackAction(
+#                     label='postback',
+#                     display_text='postback text',
+#                     data='action=buy&itemid=1'            ),
+#                 MessageAction(
+#                     label='message',
+#                     text='message text'
+#                 ),
+#                 URIAction(
+#                     label='uri',
+#                     uri='http://example.com/'
+#                 )
+#             ]
+#         )
+#     ), timeout=5000)
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    got_message = event.message.text
-    replyMessage = "echo: "+got_message
-    if got_message == 'flight search':
+    got_message = event.message.text.lower()
+    replyMessage = "Can't understand what you are trying to say!"
+    if "flight" in got_message or "search" in got_message:
         replyMessage = "You want to search a flight for oneway or round trip?"
     if got_message == 'round trip':
         replyMessage = "Round trip searches"
     if got_message == 'oneway' or got_message == 'one way' or got_message == 'one-way':
         replyMessage = "One way searches"
-    line_bot_api.reply_message(event.reply_token,TemplateSendMessage(
-        alt_text='Buttons template',
-        template=ButtonsTemplate(
-            thumbnail_image_url='https://example.com/image.jpg',
-            title='Menu',
-            text='Please select',
-            actions=[
-                PostbackAction(
-                    label='postback',
-                    display_text='postback text',
-                    data='action=buy&itemid=1'            ),
-                MessageAction(
-                    label='message',
-                    text='message text'
-                ),
-                URIAction(
-                    label='uri',
-                    uri='http://example.com/'
-                )
-            ]
-        )
-    ), timeout=5000)
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=replyMessage + " $", emojis=[{
+        "index": 0,
+        "productId": "5ac22a8c031a6752fb806d66",
+        "emojiId": "025"
 
+    }]))
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
