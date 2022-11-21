@@ -139,9 +139,39 @@ def handle_message(event):
             if "yes" in got_message or "yup" in got_message:
                 userData[user_id] = {
                     "message": "Comfirm_yes",
-                    "is_required": False
+                    "is_required": True
                 }
                 line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="Confirming your booking! \U0001f610"), TextSendMessage(text="Your booking is confirmed! \U0001f60d, you confirmation id is HOIU3q4142oHOI, reservation ID is HH202299110"), TextSendMessage(text=f"Do you want to rent cars in {place.capitalize()} on {time}")])
+            else:
+                userData[user_id] = {
+                    "message": "",
+                    "is_required": False
+                }
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
+        if last_message_info["is_required"] and last_message_info["message"] == "Comfirm_yes":
+            place = last_message_info["place"]
+            time = last_message_info["time"]
+            if "yes" in got_message or "yup" in got_message:
+                userData[user_id] = {
+                    "message": "cars_check",
+                    "is_required": False
+                }
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for cars on {time.capitalize()} in {place.capitalize()}"))
+            else:
+                userData[user_id] = {
+                    "message": "hotel_check",
+                    "is_required": True
+                }
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Do you want to checkout hotels in {place.capitalize()} on {time}"))
+        if last_message_info["is_required"] and last_message_info["message"] == "hotel_check":
+            place = last_message_info["place"]
+            time = last_message_info["time"]
+            if "yes" in got_message or "yup" in got_message:
+                userData[user_id] = {
+                    "message": "",
+                    "is_required": False
+                }
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for hotels on {time.capitalize()} in {place.capitalize()}"))
             else:
                 userData[user_id] = {
                     "message": "",
