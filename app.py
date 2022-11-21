@@ -78,20 +78,20 @@ def handle_message(event):
     last_message_info = {}
     if user_id in userData:
         last_message_info = userData[user_id]
-    if last_message_info["is_required"] and last_message_info["Do you wish to travel somewhere?"]:
-        if "yes" in got_message or "yup" in got_message:
-            userData[user_id] = {
-                "last_message_info": "Where do you want to travel?",
-                "is_required": True
-            }
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Where do you want to travel?"))
-    if last_message_info["is_required"] and last_message_info["Where do you want to travel?"]:
-        if "yes" in got_message or "yup" in got_message:
-            userData[user_id] = {
-                "last_message_info": "Where do you want to travel?",
-                "is_required": True
-            }
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Where do you want to travel?"))
+        if last_message_info["is_required"] and last_message_info["Do you wish to travel somewhere?"]:
+            if "yes" in got_message or "yup" in got_message:
+                userData[user_id] = {
+                    "last_message_info": "Where do you want to travel?",
+                    "is_required": True
+                }
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Where do you want to travel?"))
+        if last_message_info["is_required"] and last_message_info["Where do you want to travel?"]:
+            if "yes" in got_message or "yup" in got_message:
+                userData[user_id] = {
+                    "last_message_info": "Where do you want to travel?",
+                    "is_required": True
+                }
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Where do you want to travel?"))
     replyMessage = "Can't understand what you are trying to say! \U0001f615"
     if "hey" in got_message or "hello" in got_message  or "hi" in got_message :
         if "flight" in got_message or "search" in got_message:
