@@ -72,19 +72,14 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     got_message = event.message.text.lower()
-    replyMessage = "Can't understand what you are trying to say!"
+    replyMessage = "Can't understand what you are trying to say! \U0001f615"
     if "flight" in got_message or "search" in got_message:
-        replyMessage = "You want to search a flight for oneway or round trip?"
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="So you are search for flights?"))
     if got_message == 'round trip':
         replyMessage = "Round trip searches"
     if got_message == 'oneway' or got_message == 'one way' or got_message == 'one-way':
         replyMessage = "One way searches"
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=replyMessage + " $", emojis=[{
-        "index": 0,
-        "productId": "5ac22a8c031a6752fb806d66",
-        "emojiId": "025"
-
-    }]))
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=replyMessage))
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
