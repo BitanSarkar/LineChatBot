@@ -148,19 +148,19 @@ def handle_message(event):
                     "is_required": False
                 }
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
-    replyMessage = "Can't understand what you are trying to say! \U0001f615"
-    if "hey" in got_message or "hello" in got_message  or "hi" in got_message :
-        userData[user_id] = {
-                "message": "Do you wish to travel somewhere?",
-                "is_required": True
-            }
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Do you wish to travel somewhere? \U0001f60d \n\n\nAssuming you want to travel single, if you want to add passenger, please type the count \nExample: yes 2 adult 1 child"))
     else:
-        userData[user_id] = {
-            "message": "",
-            "is_required": False
-        }
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=replyMessage))
+        if "hey" in got_message or "hello" in got_message  or "hi" in got_message :
+            userData[user_id] = {
+                    "message": "Do you wish to travel somewhere?",
+                    "is_required": True
+                }
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Do you wish to travel somewhere? \U0001f60d \n\n\nAssuming you want to travel single, if you want to add passenger, please type the count \nExample: yes 2 adult 1 child"))
+        else:
+            userData[user_id] = {
+                "message": "",
+                "is_required": False
+            }
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to say! \U0001f615"))
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
