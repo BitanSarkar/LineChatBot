@@ -87,11 +87,12 @@ def handle_message(event):
                     "is_required": True
                 }
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Where do you want to travel?"))
-            userData[user_id] = {
-                "message": "",
-                "is_required": False
-            }
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
+            else:
+                userData[user_id] = {
+                    "message": "",
+                    "is_required": False
+                }
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
         if last_message_info["is_required"] and last_message_info["message"] == "Where do you want to travel?":
             userData[user_id] = {
                 "message": "When do you want to travel?",
@@ -141,11 +142,12 @@ def handle_message(event):
                     "is_required": True
                 }
                 line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="Confirming your booking! \U0001f610"), TextSendMessage(text="Your booking is confirmed! \U0001f60d, you confirmation id is HOIU3q4142oHOI, reservation ID is HH202299110"), TextSendMessage(text=f"Do you want to rent cars in {place.capitalize()} on {time}")])
-            userData[user_id] = {
-                "message": "",
-                "is_required": False
-            }
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
+            else:
+                userData[user_id] = {
+                    "message": "",
+                    "is_required": False
+                }
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
     replyMessage = "Can't understand what you are trying to say! \U0001f615"
     if "hey" in got_message or "hello" in got_message  or "hi" in got_message :
         userData[user_id] = {
