@@ -73,7 +73,8 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     got_message = event.message.text.lower()
-    user_id = event.source.userId
+    print(event.source)
+    user_id = event.source["userId"]
     last_message_info = {}
     if user_id in userData:
         last_message_info = userData[user_id]
