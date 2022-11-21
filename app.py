@@ -74,7 +74,7 @@ def callback():
 def handle_message(event):
     got_message = event.message.text.lower()
     print(event.source)
-    user_id = event.source["userId"]
+    user_id = event.source["user_id"]
     last_message_info = {}
     if user_id in userData:
         last_message_info = userData[user_id]
