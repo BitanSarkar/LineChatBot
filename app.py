@@ -139,7 +139,7 @@ def handle_message(event):
             if "yes" in got_message or "yup" in got_message:
                 userData[user_id] = {
                     "message": "Comfirm_yes",
-                    "is_required": True
+                    "is_required": False
                 }
                 line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="Confirming your booking! \U0001f610"), TextSendMessage(text="Your booking is confirmed! \U0001f60d, you confirmation id is HOIU3q4142oHOI, reservation ID is HH202299110"), TextSendMessage(text=f"Do you want to rent cars in {place.capitalize()} on {time}")])
             else:
