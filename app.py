@@ -94,17 +94,16 @@ def handle_message(event):
             }
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"When do you want to travel to {got_message.capitalize()}?"))
         if last_message_info["is_required"] and last_message_info["message"] == "When do you want to travel?":
-            place = userData[user_id].place
             userData[user_id] = {
                 "message": "In which city are you right now?",
-                "place": place,
+                "place": last_message_info["place"],
                 "time": got_message,
                 "is_required": True
             }
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="In which city are you right now?"))
         if last_message_info["is_required"] and last_message_info["message"] == "In which city are you right now?":
-            place = userData[user_id].place
-            time = userData[user_id].time
+            place = last_message_info["place"]
+            time = last_message_info["time"]
             userData[user_id] = {
                 "message": "In which city are you right now?",
                 "place": place,
