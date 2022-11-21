@@ -72,14 +72,13 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    print(userData)
+    print("-------------------------------->" +userData)
     got_message = event.message.text.lower().strip()
-    print(event.source)
     user_id = event.source.user_id
     last_message_info = {}
     if user_id in userData:
         last_message_info = userData[user_id]
-        if last_message_info["is_required"] and last_message_info["message"] == "Do you wish to travel somewhere?\n\n\nAssuming you want to travel single, if you want to add passenger, please type the count \nExample: yes 2 adult 1 child":
+        if last_message_info["is_required"] and last_message_info["message"] == "Do you wish to travel somewhere?":
             if "yes" in got_message or "yup" in got_message:
                 userData[user_id] = {
                     "message": "Where do you want to travel?",
@@ -155,13 +154,13 @@ def handle_message(event):
                 "message": "Do you wish to travel somewhere?",
                 "is_required": True
             }
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Do you wish to travel somewhere? \U0001f60d"))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Do you wish to travel somewhere? \U0001f60d \n\n\nAssuming you want to travel single, if you want to add passenger, please type the count \nExample: yes 2 adult 1 child"))
     if "flight" in got_message or "search" in got_message:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text="So you want to search for flights?"))
     userData[user_id] = {
-            "message": "",
-            "is_required": False
-        }
+        "message": "",
+        "is_required": False
+    }
     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=replyMessage))
 
 if __name__ == "__main__":
