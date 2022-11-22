@@ -7,7 +7,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackAction, MessageAction, URIAction
+    MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackAction, MessageAction, URIAction, FlexSendMessage
 )
 
 import os
@@ -36,39 +36,6 @@ def callback():
         abort(400)
 
     return 'OK'
-
-# @handler.add(MessageEvent, message=TextMessage)
-# def handle_message(event):
-#     got_message = event.message.text
-#     replyMessage = "echo: "+got_message
-#     if got_message == 'flight search':
-#         replyMessage = "You want to search a flight for oneway or round trip?"
-#     if got_message == 'round trip':
-#         replyMessage = "Round trip searches"
-#     if got_message == 'oneway' or got_message == 'one way' or got_message == 'one-way':
-#         replyMessage = "One way searches"
-#     line_bot_api.reply_message(event.reply_token,TemplateSendMessage(
-#         alt_text='Buttons template',
-#         template=ButtonsTemplate(
-#             thumbnail_image_url='https://example.com/image.jpg',
-#             title='Menu',
-#             text='Please select',
-#             actions=[
-#                 PostbackAction(
-#                     label='postback',
-#                     display_text='postback text',
-#                     data='action=buy&itemid=1'            ),
-#                 MessageAction(
-#                     label='message',
-#                     text='message text'
-#                 ),
-#                 URIAction(
-#                     label='uri',
-#                     uri='http://example.com/'
-#                 )
-#             ]
-#         )
-#     ), timeout=5000)
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -139,6 +106,8 @@ def handle_message(event):
             if "yes" in got_message or "yup" in got_message:
                 userData[user_id] = {
                     "message": "Comfirm_yes",
+                    "place": place,
+                    "time": time,
                     "is_required": True
                 }
                 line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="Confirming your booking! \U0001f610"), TextSendMessage(text="Your booking is confirmed! \U0001f60d, you confirmation id is HOIU3q4142oHOI, reservation ID is HH202299110"), TextSendMessage(text=f"Do you want to rent cars in {place.capitalize()} on {time}")])
@@ -154,6 +123,8 @@ def handle_message(event):
             if "yes" in got_message or "yup" in got_message:
                 userData[user_id] = {
                     "message": "cars_check",
+                    "place": place,
+                    "time": time,
                     "is_required": False
                 }
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for cars on {time.capitalize()} in {place.capitalize()}"))
@@ -190,6 +161,32 @@ def handle_message(event):
                 "message": "",
                 "is_required": False
             }
+            line_bot_api.reply_message(event.reply_token, FlexSendMessage(
+                                                                alt_text='hello',
+                                                                contents=[{
+                                                                    'type': 'bubble',
+                                                                    'direction': 'ltr',
+                                                                    'hero': {
+                                                                        'type': 'image',
+                                                                        'url': 'https://example.com/cafe.jpg',
+                                                                        'size': 'full',
+                                                                        'aspectRatio': '20:13',
+                                                                        'aspectMode': 'cover',
+                                                                        'action': { 'type': 'uri', 'uri': 'http://example.com', 'label': 'label' }
+                                                                    }
+                                                                },{
+                                                                    'type': 'bubble',
+                                                                    'direction': 'ltr',
+                                                                    'hero': {
+                                                                        'type': 'image',
+                                                                        'url': 'https://example.com/cafe.jpg',
+                                                                        'size': 'full',
+                                                                        'aspectRatio': '20:13',
+                                                                        'aspectMode': 'cover',
+                                                                        'action': { 'type': 'uri', 'uri': 'http://example.com', 'label': 'label' }
+                                                                    }
+                                                                }]
+                                                            ))
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to say! \U0001f615"))
 
 if __name__ == "__main__":
