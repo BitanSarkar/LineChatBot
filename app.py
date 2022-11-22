@@ -364,71 +364,68 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, [FlexSendMessage(
                                                                 alt_text='hello',
                                                                 contents={
-                                                                        "type": "carousel",
-                                                                        "contents": {
-                                                                                        "type": "bubble",
-                                                                                        "body": {
-                                                                                            "type": "box",
-                                                                                            "layout": "vertical",
-                                                                                            "contents": [
-                                                                                            {
-                                                                                                "type": "text",
-                                                                                                "text": "Hey, I am BookEazie. I am your personal tour guide, making your bookings easy.",
-                                                                                                "wrap": True,
-                                                                                                "contents": [
-                                                                                                {
-                                                                                                    "type": "span",
-                                                                                                    "text": "Hey, I am "
-                                                                                                },
-                                                                                                {
-                                                                                                    "type": "span",
-                                                                                                    "text": "BookEazie",
-                                                                                                    "weight": "bold",
-                                                                                                    "decoration": "none",
-                                                                                                    "style": "italic",
-                                                                                                    "color": "#49be25"
-                                                                                                },
-                                                                                                {
-                                                                                                    "type": "span",
-                                                                                                    "text": ". I am your "
-                                                                                                },
-                                                                                                {
-                                                                                                    "type": "span",
-                                                                                                    "text": "personal AI tour guide",
-                                                                                                    "weight": "bold"
-                                                                                                },
-                                                                                                {
-                                                                                                    "type": "span",
-                                                                                                    "text": ", making your travel bookings easy."
-                                                                                                }
-                                                                                                ]
-                                                                                            },
-                                                                                            {
-                                                                                                "type": "separator",
-                                                                                                "margin": "lg"
-                                                                                            },
-                                                                                            {
-                                                                                                "type": "text",
-                                                                                                "text": "I provide bookings and reservations, from flight to hotel, from renting cars to reserving seats in restaurants.",
-                                                                                                "wrap": True
-                                                                                            },
-                                                                                            {
-                                                                                                "type": "separator",
-                                                                                                "margin": "lg"
-                                                                                            },
-                                                                                            {
-                                                                                                "type": "text",
-                                                                                                "text": "Type down what do you want to do! And I am there for you!",
-                                                                                                "wrap": True,
-                                                                                                "align": "center",
-                                                                                                "style": "italic",
-                                                                                                "size": "lg"
-                                                                                            }
-                                                                                            ],
-                                                                                            "justifyContent": "space-around"
-                                                                                        }
-                                                                                        }
+                                                                    "type": "bubble",
+                                                                    "body": {
+                                                                        "type": "box",
+                                                                        "layout": "vertical",
+                                                                        "contents": [
+                                                                        {
+                                                                            "type": "text",
+                                                                            "text": "Hey, I am BookEazie. I am your personal tour guide, making your bookings easy.",
+                                                                            "wrap": True,
+                                                                            "contents": [
+                                                                            {
+                                                                                "type": "span",
+                                                                                "text": "Hey, I am "
+                                                                            },
+                                                                            {
+                                                                                "type": "span",
+                                                                                "text": "BookEazie",
+                                                                                "weight": "bold",
+                                                                                "decoration": "none",
+                                                                                "style": "italic",
+                                                                                "color": "#49be25"
+                                                                            },
+                                                                            {
+                                                                                "type": "span",
+                                                                                "text": ". I am your "
+                                                                            },
+                                                                            {
+                                                                                "type": "span",
+                                                                                "text": "personal AI tour guide",
+                                                                                "weight": "bold"
+                                                                            },
+                                                                            {
+                                                                                "type": "span",
+                                                                                "text": ", making your travel bookings easy."
+                                                                            }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": "separator",
+                                                                            "margin": "lg"
+                                                                        },
+                                                                        {
+                                                                            "type": "text",
+                                                                            "text": "I provide bookings and reservations, from flight to hotel, from renting cars to reserving seats in restaurants.",
+                                                                            "wrap": True
+                                                                        },
+                                                                        {
+                                                                            "type": "separator",
+                                                                            "margin": "lg"
+                                                                        },
+                                                                        {
+                                                                            "type": "text",
+                                                                            "text": "Type down what do you want to do! And I am there for you!",
+                                                                            "wrap": True,
+                                                                            "align": "center",
+                                                                            "style": "italic",
+                                                                            "size": "lg"
                                                                         }
+                                                                        ],
+                                                                        "justifyContent": "space-around"
+                                                                    }
+                                                                    }
                                                             )])
         else:
             userData[user_id] = {
