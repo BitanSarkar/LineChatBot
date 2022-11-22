@@ -168,7 +168,7 @@ def handle_message(event):
                                                                     'direction': 'ltr',
                                                                     'hero': {
                                                                         'type': 'image',
-                                                                        'url': 'https://example.com/cafe.jpg',
+                                                                        'url': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png',
                                                                         'size': 'full',
                                                                         'aspectRatio': '20:13',
                                                                         'aspectMode': 'cover',
@@ -179,7 +179,7 @@ def handle_message(event):
                                                                     'direction': 'ltr',
                                                                     'hero': {
                                                                         'type': 'image',
-                                                                        'url': 'https://example.com/cafe.jpg',
+                                                                        'url': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png',
                                                                         'size': 'full',
                                                                         'aspectRatio': '20:13',
                                                                         'aspectMode': 'cover',
