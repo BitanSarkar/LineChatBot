@@ -69,7 +69,7 @@ def handle_message(event):
                 "place": got_message,
                 "is_required": True
             }
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"When do you want to travel to {got_message.capitalize()}?"))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"When do you want to travel to {got_message.upper()}?"))
         if last_message_info["is_required"] and last_message_info["message"] == "When do you want to travel?":
             userData[user_id] = {
                 "message": "In which city are you right now?",
@@ -88,7 +88,7 @@ def handle_message(event):
                 "from_place": got_message,
                 "is_required": True
             }
-            line_bot_api.reply_message(event.reply_token, [TextSendMessage(text=f"Searching for flights from {got_message.capitalize()} to {place.capitalize()} on {time.capitalize()}"), FlexSendMessage(
+            line_bot_api.reply_message(event.reply_token, [TextSendMessage(text=f"Searching for flights from {got_message.upper()} to {place.upper()} on {time.upper()}"), FlexSendMessage(
                                                                 alt_text='hello',
                                                                 contents={
                                                                         "type": "carousel",
@@ -200,7 +200,7 @@ def handle_message(event):
                 "flight_search": flight[int(got_message)-1],
                 "is_required": True
             }
-            line_bot_api.reply_message(event.reply_token, messages=TextSendMessage(text=f"Are you sure you want to book this flight from {from_place.capitalize()} to {place.capitalize()}?\n\n\n\nSeamless booking for you, as you are a valued SCB customer!"))
+            line_bot_api.reply_message(event.reply_token, messages=TextSendMessage(text=f"Are you sure you want to book this flight from {from_place.upper()} to {place.upper()}?\n\n\n\nSeamless booking for you, as you are a valued SCB customer!"))
         if last_message_info["is_required"] and last_message_info["message"] == "confirmation":
             place = last_message_info["place"]
             time = last_message_info["time"]
@@ -211,7 +211,7 @@ def handle_message(event):
                     "time": time,
                     "is_required": True
                 }
-                line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="Confirming your booking! \U0001f610"), TextSendMessage(text=f"Your booking is confirmed! \U0001f60d, you confirmation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 10)) }, reservation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 5)) }"), TextSendMessage(text=f"Do you want to rent cars in {place.capitalize()} on {time}")])
+                line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="Confirming your booking! \U0001f610"), TextSendMessage(text=f"Your booking is confirmed! \U0001f60d, you confirmation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 10)) }, reservation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 5)) }"), TextSendMessage(text=f"Do you want to rent cars in {place.upper()} on {time}")])
             else:
                 userData[user_id] = {
                     "message": "",
@@ -226,7 +226,7 @@ def handle_message(event):
                     "message": "cars_check",
                     "is_required": False
                 }
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for cars on {time.capitalize()} in {place.capitalize()}"))
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for cars on {time.upper()} in {place.upper()}"))
             else:
                 userData[user_id] = {
                     "message": "hotel_check",
@@ -234,7 +234,7 @@ def handle_message(event):
                     "time": time,
                     "is_required": True
                 }
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Do you want to checkout hotels in {place.capitalize()} on {time}"))
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Do you want to checkout hotels in {place.upper()} on {time}"))
         if last_message_info["is_required"] and last_message_info["message"] == "hotel_check":
             place = last_message_info["place"]
             time = last_message_info["time"]
@@ -243,7 +243,7 @@ def handle_message(event):
                     "message": "",
                     "is_required": False
                 }
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for hotels on {time.capitalize()} in {place.capitalize()}"))
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for hotels on {time.upper()} in {place.upper()}"))
             else:
                 userData[user_id] = {
                     "message": "",
