@@ -269,7 +269,7 @@ def handle_message(event):
                                                                                     "contents": [
                                                                                     {
                                                                                         "type": "text",
-                                                                                        "text": "Offers free delivery \\U0001f60d",
+                                                                                        "text": "Offers free delivery \U0001f60d",
                                                                                         "size": "md",
                                                                                         "weight": "bold",
                                                                                         "style": "italic"
@@ -296,7 +296,7 @@ def handle_message(event):
                                                                                     "contents": [
                                                                                     {
                                                                                         "type": "text",
-                                                                                        "text": "Offers free delivery \\U0001f60d",
+                                                                                        "text": "Offers free delivery \U0001f60d",
                                                                                         "size": "md",
                                                                                         "weight": "bold",
                                                                                         "style": "italic"
