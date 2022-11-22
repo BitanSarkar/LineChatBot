@@ -224,14 +224,14 @@ def handle_message(event):
             if "yes" in got_message or "yup" in got_message:
                 userData[user_id] = {
                     "message": "cars_check",
-                    "place": place,
-                    "time": time,
                     "is_required": False
                 }
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for cars on {time.capitalize()} in {place.capitalize()}"))
             else:
                 userData[user_id] = {
                     "message": "hotel_check",
+                    "place": place,
+                    "time": time,
                     "is_required": True
                 }
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Do you want to checkout hotels in {place.capitalize()} on {time}"))
