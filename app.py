@@ -45,7 +45,7 @@ def handle_message(event):
     got_message = event.message.text.lower().strip()
     user_id = event.source.user_id
     last_message_info = {}
-    if user_id in userData and userData[user_id].is_required:
+    if user_id in userData and userData[user_id]["is_required"]:
         last_message_info = userData[user_id]
         if last_message_info["is_required"] and last_message_info["message"] == "Do you wish to travel somewhere?":
             if "yes" in got_message or "yup" in got_message:
