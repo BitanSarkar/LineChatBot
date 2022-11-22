@@ -51,7 +51,7 @@ def handle_message(event):
     if user_id in userData and userData[user_id]["is_required"]:
         last_message_info = userData[user_id]
         if last_message_info["is_required"] and last_message_info["message"] == "Do you wish to travel somewhere?":
-            if "yes" in got_message or "yup" in got_message:
+            if "travel" in got_message and "flight" in got_message:
                 userData[user_id] = {
                     "message": "Where do you want to travel?",
                     "is_required": True
@@ -231,7 +231,7 @@ def handle_message(event):
                                                                             }
                                                                         ]
                                                                         }
-                                                            ), TextSendMessage(text="Select flight by clicking option [1 - 5]")])
+                                                            )])
         if last_message_info["is_required"] and last_message_info["message"] == "Option Selection":
             flight = ["Flight ABC", "Flight DEF", "Flight GFHI", "Flight DErfF", "Flight GFHffI"]
             place = last_message_info["place"]
@@ -326,12 +326,12 @@ def handle_message(event):
         if last_message_info["is_required"] and last_message_info["message"] == "Comfirm_yes":
             place = last_message_info["place"]
             time = last_message_info["time"]
-            if "Avani Atrium Bangkok" == got_message or "Column Bangkok" == got_message:
+            if "avani atrium bangkok" == got_message or "column bangkok" == got_message:
                 userData[user_id] = {
                     "message": "cars_check",
                     "is_required": False
                 }
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for reservations in {got_message} on {time.upper()} in {place.upper()}"))
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for reservations in {got_message.capitalize()} on {time.upper()} in {place.upper()}"))
             else:
                 userData[user_id] = {
                     "message": "hotel_check",
@@ -348,7 +348,7 @@ def handle_message(event):
                     "message": "",
                     "is_required": False
                 }
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for hotels on {time.upper()} in {place.upper()}"))
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for cars on {time.upper()} in {place.upper()}"))
             else:
                 userData[user_id] = {
                     "message": "",
@@ -361,7 +361,75 @@ def handle_message(event):
                     "message": "Do you wish to travel somewhere?",
                     "is_required": True
                 }
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Do you wish to travel somewhere? \U0001f60d \n\n\nAssuming you want to travel single, if you want to add passenger, please type the count \nExample: yes 2 adult 1 child"))
+            line_bot_api.reply_message(event.reply_token, [FlexSendMessage(
+                                                                alt_text='hello',
+                                                                contents={
+                                                                        "type": "carousel",
+                                                                        "contents": {
+                                                                                        "type": "bubble",
+                                                                                        "body": {
+                                                                                            "type": "box",
+                                                                                            "layout": "vertical",
+                                                                                            "contents": [
+                                                                                            {
+                                                                                                "type": "text",
+                                                                                                "text": "Hey, I am BookEazie. I am your personal tour guide, making your bookings easy.",
+                                                                                                "wrap": True,
+                                                                                                "contents": [
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "text": "Hey, I am "
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "text": "BookEazie",
+                                                                                                    "weight": "bold",
+                                                                                                    "decoration": "none",
+                                                                                                    "style": "italic",
+                                                                                                    "color": "#49be25"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "text": ". I am your "
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "text": "personal AI tour guide",
+                                                                                                    "weight": "bold"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "text": ", making your travel bookings easy."
+                                                                                                }
+                                                                                                ]
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "separator",
+                                                                                                "margin": "lg"
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "text",
+                                                                                                "text": "I provide bookings and reservations, from flight to hotel, from renting cars to reserving seats in restaurants.",
+                                                                                                "wrap": True
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "separator",
+                                                                                                "margin": "lg"
+                                                                                            },
+                                                                                            {
+                                                                                                "type": "text",
+                                                                                                "text": "Type down what do you want to do! And I am there for you!",
+                                                                                                "wrap": True,
+                                                                                                "align": "center",
+                                                                                                "style": "italic",
+                                                                                                "size": "lg"
+                                                                                            }
+                                                                                            ],
+                                                                                            "justifyContent": "space-around"
+                                                                                        }
+                                                                                        }
+                                                                        }
+                                                            )])
         else:
             userData[user_id] = {
                 "message": "",
