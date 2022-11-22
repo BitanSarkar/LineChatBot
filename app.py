@@ -164,17 +164,36 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, FlexSendMessage(
                                                                 alt_text='hello',
                                                                 contents={
-                                                                    'type': 'bubble',
-                                                                    'direction': 'ltr',
-                                                                    'hero': {
-                                                                        'type': 'image',
-                                                                        'url': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png',
-                                                                        'size': 'full',
-                                                                        'aspectRatio': '20:13',
-                                                                        'aspectMode': 'cover',
-                                                                        'action': { 'type': 'uri', 'uri': 'http://example.com', 'label': 'label' }
+                                                                    "type": "carousel",
+                                                                    "contents": [
+                                                                        {
+                                                                        "type": "bubble",
+                                                                        "body": {
+                                                                            "type": "box",
+                                                                            "layout": "vertical",
+                                                                            "contents": [
+                                                                            {
+                                                                                "type": "image",
+                                                                                "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png"
+                                                                            }
+                                                                            ]
+                                                                        }
+                                                                        },
+                                                                        {
+                                                                        "type": "bubble",
+                                                                        "body": {
+                                                                            "type": "box",
+                                                                            "layout": "vertical",
+                                                                            "contents": [
+                                                                            {
+                                                                                "type": "image",
+                                                                                "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png"
+                                                                            }
+                                                                            ]
+                                                                        }
+                                                                        }
+                                                                    ]
                                                                     }
-                                                                }
                                                             ))
 #            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to say! \U0001f615"))
 
