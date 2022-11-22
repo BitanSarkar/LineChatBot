@@ -101,12 +101,21 @@ def handle_message(event):
                                                                                 "contents": [
                                                                                 {
                                                                                     "type": "text",
-                                                                                    "text": "Option 1"
+                                                                                    "text": "Option 1",
+                                                                                    "weight": "bold",
+                                                                                    "style": "italic",
+                                                                                    "decoration": "underline",
+                                                                                    "align": "center"
                                                                                 },
                                                                                 {
                                                                                     "type": "image",
                                                                                     "url": "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.30+PM.jpeg",
-                                                                                    "size": "full"
+                                                                                    "size": "full",
+                                                                                    "action": {
+                                                                                    "type": "message",
+                                                                                    "label": "option 1",
+                                                                                    "text": "1"
+                                                                                    }
                                                                                 }
                                                                                 ],
                                                                                 "flex": 0
@@ -120,12 +129,21 @@ def handle_message(event):
                                                                                 "contents": [
                                                                                 {
                                                                                     "type": "text",
-                                                                                    "text": "Option 2"
+                                                                                    "text": "Option 2",
+                                                                                    "weight": "bold",
+                                                                                    "style": "italic",
+                                                                                    "decoration": "underline",
+                                                                                    "align": "center"
                                                                                 },
                                                                                 {
                                                                                     "type": "image",
                                                                                     "url": "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg",
-                                                                                    "size": "full"
+                                                                                    "size": "full",
+                                                                                    "action": {
+                                                                                    "type": "message",
+                                                                                    "label": "option 2",
+                                                                                    "text": "2"
+                                                                                    }
                                                                                 }
                                                                                 ]
                                                                             }
@@ -138,12 +156,21 @@ def handle_message(event):
                                                                                 "contents": [
                                                                                 {
                                                                                     "type": "text",
-                                                                                    "text": "Option 3"
+                                                                                    "text": "Option 3",
+                                                                                    "weight": "bold",
+                                                                                    "style": "italic",
+                                                                                    "decoration": "underline",
+                                                                                    "align": "center"
                                                                                 },
                                                                                 {
                                                                                     "type": "image",
                                                                                     "url": "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg",
-                                                                                    "size": "full"
+                                                                                    "size": "full",
+                                                                                    "action": {
+                                                                                    "type": "message",
+                                                                                    "label": "option 3",
+                                                                                    "text": "3"
+                                                                                    }
                                                                                 }
                                                                                 ]
                                                                             }
@@ -156,12 +183,21 @@ def handle_message(event):
                                                                                 "contents": [
                                                                                 {
                                                                                     "type": "text",
-                                                                                    "text": "Option 4"
+                                                                                    "text": "Option 4",
+                                                                                    "weight": "bold",
+                                                                                    "style": "italic",
+                                                                                    "decoration": "underline",
+                                                                                    "align": "center"
                                                                                 },
                                                                                 {
                                                                                     "type": "image",
                                                                                     "url": "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.30+PM.jpeg",
-                                                                                    "size": "full"
+                                                                                    "size": "full",
+                                                                                    "action": {
+                                                                                    "type": "message",
+                                                                                    "label": "option 4",
+                                                                                    "text": "4"
+                                                                                    }
                                                                                 }
                                                                                 ]
                                                                             }
@@ -174,12 +210,21 @@ def handle_message(event):
                                                                                 "contents": [
                                                                                 {
                                                                                     "type": "text",
-                                                                                    "text": "Option 5"
+                                                                                    "text": "Option 5",
+                                                                                    "weight": "bold",
+                                                                                    "style": "italic",
+                                                                                    "decoration": "underline",
+                                                                                    "align": "center"
                                                                                 },
                                                                                 {
                                                                                     "type": "image",
                                                                                     "url": "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.50+PM.jpeg",
-                                                                                    "size": "full"
+                                                                                    "size": "full",
+                                                                                    "action": {
+                                                                                    "type": "message",
+                                                                                    "label": "option 5",
+                                                                                    "text": "5"
+                                                                                    }
                                                                                 }
                                                                                 ]
                                                                             }
@@ -211,7 +256,67 @@ def handle_message(event):
                     "time": time,
                     "is_required": True
                 }
-                line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="Confirming your booking! \U0001f610"), TextSendMessage(text=f"Your booking is confirmed! \U0001f60d, you confirmation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 10)) }, reservation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 5)) }"), TextSendMessage(text=f"Do you want to rent cars in {place.upper()} on {time}")])
+                line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="Confirming your booking! \U0001f610"), TextSendMessage(text=f"Your booking is confirmed! \U0001f60d, you confirmation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 10)) }, reservation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 5)) }"), TextSendMessage(text=f"Where are you going to stay in {place.upper()} on {time}? Do you want to check out amazing hotels in {place.upper()}"), FlexSendMessage(
+                                                                alt_text='hello',
+                                                                contents={
+                                                                            "type": "carousel",
+                                                                            "contents": [
+                                                                                {
+                                                                                "type": "bubble",
+                                                                                "body": {
+                                                                                    "type": "box",
+                                                                                    "layout": "vertical",
+                                                                                    "contents": [
+                                                                                    {
+                                                                                        "type": "text",
+                                                                                        "text": "Offers free delivery \\U0001f60d",
+                                                                                        "size": "md",
+                                                                                        "weight": "bold",
+                                                                                        "style": "italic"
+                                                                                    },
+                                                                                    {
+                                                                                        "type": "image",
+                                                                                        "url": "https://akhil9811bucket.s3.amazonaws.com/hotel/WhatsApp+Image+2022-11-22+at+12.59.20+PM.jpeg",
+                                                                                        "size": "full",
+                                                                                        "action": {
+                                                                                        "type": "message",
+                                                                                        "label": "action",
+                                                                                        "text": "Avani Atrium Bangkok"
+                                                                                        }
+                                                                                    }
+                                                                                    ],
+                                                                                    "flex": 0
+                                                                                }
+                                                                                },
+                                                                                {
+                                                                                "type": "bubble",
+                                                                                "body": {
+                                                                                    "type": "box",
+                                                                                    "layout": "vertical",
+                                                                                    "contents": [
+                                                                                    {
+                                                                                        "type": "text",
+                                                                                        "text": "Offers free delivery \\U0001f60d",
+                                                                                        "size": "md",
+                                                                                        "weight": "bold",
+                                                                                        "style": "italic"
+                                                                                    },
+                                                                                    {
+                                                                                        "type": "image",
+                                                                                        "url": "https://akhil9811bucket.s3.amazonaws.com/hotel/WhatsApp+Image+2022-11-22+at+12.59.35+PM.jpeg",
+                                                                                        "size": "full",
+                                                                                        "action": {
+                                                                                        "type": "message",
+                                                                                        "label": "action",
+                                                                                        "text": "Column Bangkok"
+                                                                                        }
+                                                                                    }
+                                                                                    ]
+                                                                                }
+                                                                                }
+                                                                            ]
+                                                                            }
+                                                            )])
             else:
                 userData[user_id] = {
                     "message": "",
@@ -221,12 +326,12 @@ def handle_message(event):
         if last_message_info["is_required"] and last_message_info["message"] == "Comfirm_yes":
             place = last_message_info["place"]
             time = last_message_info["time"]
-            if "yes" in got_message or "yup" in got_message:
+            if "Avani Atrium Bangkok" == got_message or "Column Bangkok" == got_message:
                 userData[user_id] = {
                     "message": "cars_check",
                     "is_required": False
                 }
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for cars on {time.upper()} in {place.upper()}"))
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for reservations in {got_message} on {time.upper()} in {place.upper()}"))
             else:
                 userData[user_id] = {
                     "message": "hotel_check",
@@ -234,7 +339,7 @@ def handle_message(event):
                     "time": time,
                     "is_required": True
                 }
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Do you want to checkout hotels in {place.upper()} on {time}"))
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Do you want to rent some cars in {place.upper()} on {time}"))
         if last_message_info["is_required"] and last_message_info["message"] == "hotel_check":
             place = last_message_info["place"]
             time = last_message_info["time"]
