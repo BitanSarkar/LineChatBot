@@ -163,7 +163,7 @@ def handle_message(event):
             }
             line_bot_api.reply_message(event.reply_token, FlexSendMessage(
                                                                 alt_text='hello',
-                                                                contents=[{
+                                                                contents={
                                                                     'type': 'bubble',
                                                                     'direction': 'ltr',
                                                                     'hero': {
@@ -174,18 +174,7 @@ def handle_message(event):
                                                                         'aspectMode': 'cover',
                                                                         'action': { 'type': 'uri', 'uri': 'http://example.com', 'label': 'label' }
                                                                     }
-                                                                },{
-                                                                    'type': 'bubble',
-                                                                    'direction': 'ltr',
-                                                                    'hero': {
-                                                                        'type': 'image',
-                                                                        'url': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png',
-                                                                        'size': 'full',
-                                                                        'aspectRatio': '20:13',
-                                                                        'aspectMode': 'cover',
-                                                                        'action': { 'type': 'uri', 'uri': 'http://example.com', 'label': 'label' }
-                                                                    }
-                                                                }]
+                                                                }
                                                             ))
 #            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to say! \U0001f615"))
 
