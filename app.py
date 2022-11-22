@@ -10,6 +10,9 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackAction, MessageAction, URIAction, FlexSendMessage
 )
 
+import string    
+import random
+
 import os
 
 app = Flask(__name__)
@@ -102,7 +105,7 @@ def handle_message(event):
                                                                                 },
                                                                                 {
                                                                                     "type": "image",
-                                                                                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+                                                                                    "url": "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.30+PM.jpeg",
                                                                                     "size": "full"
                                                                                 }
                                                                                 ],
@@ -121,7 +124,61 @@ def handle_message(event):
                                                                                 },
                                                                                 {
                                                                                     "type": "image",
-                                                                                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+                                                                                    "url": "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg",
+                                                                                    "size": "full"
+                                                                                }
+                                                                                ]
+                                                                            }
+                                                                            },
+                                                                            {
+                                                                            "type": "bubble",
+                                                                            "body": {
+                                                                                "type": "box",
+                                                                                "layout": "vertical",
+                                                                                "contents": [
+                                                                                {
+                                                                                    "type": "text",
+                                                                                    "text": "Option 3"
+                                                                                },
+                                                                                {
+                                                                                    "type": "image",
+                                                                                    "url": "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg",
+                                                                                    "size": "full"
+                                                                                }
+                                                                                ]
+                                                                            }
+                                                                            },
+                                                                            {
+                                                                            "type": "bubble",
+                                                                            "body": {
+                                                                                "type": "box",
+                                                                                "layout": "vertical",
+                                                                                "contents": [
+                                                                                {
+                                                                                    "type": "text",
+                                                                                    "text": "Option 4"
+                                                                                },
+                                                                                {
+                                                                                    "type": "image",
+                                                                                    "url": "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.30+PM.jpeg",
+                                                                                    "size": "full"
+                                                                                }
+                                                                                ]
+                                                                            }
+                                                                            },
+                                                                            {
+                                                                            "type": "bubble",
+                                                                            "body": {
+                                                                                "type": "box",
+                                                                                "layout": "vertical",
+                                                                                "contents": [
+                                                                                {
+                                                                                    "type": "text",
+                                                                                    "text": "Option 5"
+                                                                                },
+                                                                                {
+                                                                                    "type": "image",
+                                                                                    "url": "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.50+PM.jpeg",
                                                                                     "size": "full"
                                                                                 }
                                                                                 ]
@@ -143,7 +200,7 @@ def handle_message(event):
                 "flight_search": flight[int(got_message)-1],
                 "is_required": True
             }
-            line_bot_api.reply_message(event.reply_token, messages=TextSendMessage(text=f"Are you sure you want to book {flight[int(got_message)-1]} from {from_place.capitalize()} to {place.capitalize()} on {time.capitalize()}?\n\n\n\nSeamless booking for you, as you are a valued SCB customer!"))
+            line_bot_api.reply_message(event.reply_token, messages=TextSendMessage(text=f"Are you sure you want to book this flight from {from_place.capitalize()} to {place.capitalize()}?\n\n\n\nSeamless booking for you, as you are a valued SCB customer!"))
         if last_message_info["is_required"] and last_message_info["message"] == "confirmation":
             place = last_message_info["place"]
             time = last_message_info["time"]
@@ -154,7 +211,7 @@ def handle_message(event):
                     "time": time,
                     "is_required": True
                 }
-                line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="Confirming your booking! \U0001f610"), TextSendMessage(text="Your booking is confirmed! \U0001f60d, you confirmation id is HOIU3q4142oHOI, reservation ID is HH202299110"), TextSendMessage(text=f"Do you want to rent cars in {place.capitalize()} on {time}")])
+                line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="Confirming your booking! \U0001f610"), TextSendMessage(text=f"Your booking is confirmed! \U0001f60d, you confirmation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 10)) }, reservation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 5)) }"), TextSendMessage(text=f"Do you want to rent cars in {place.capitalize()} on {time}")])
             else:
                 userData[user_id] = {
                     "message": "",
