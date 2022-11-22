@@ -45,7 +45,7 @@ def handle_message(event):
     got_message = event.message.text.lower().strip()
     user_id = event.source.user_id
     last_message_info = {}
-    if user_id in userData:
+    if user_id in userData and userData[user_id].is_required:
         last_message_info = userData[user_id]
         if last_message_info["is_required"] and last_message_info["message"] == "Do you wish to travel somewhere?":
             if "yes" in got_message or "yup" in got_message:
@@ -85,7 +85,51 @@ def handle_message(event):
                 "from_place": got_message,
                 "is_required": True
             }
-            line_bot_api.reply_message(event.reply_token, messages=[TextSendMessage(text=f"Searching for flights from {got_message.capitalize()} to {place.capitalize()} on {time.capitalize()}"), TextSendMessage(text=f"These are your options,\n1. Flight ABC\n2. Flight DEF\n3. Flight GFHI\n4. Flight DErfF\n5. Flight GFHffI   \nSelect flight by clicking option [1 - 5]")])
+            line_bot_api.reply_message(event.reply_token, [TextSendMessage(text=f"Searching for flights from {got_message.capitalize()} to {place.capitalize()} on {time.capitalize()}"), FlexSendMessage(
+                                                                alt_text='hello',
+                                                                contents={
+                                                                        "type": "carousel",
+                                                                        "contents": [
+                                                                            {
+                                                                            "type": "bubble",
+                                                                            "body": {
+                                                                                "type": "box",
+                                                                                "layout": "vertical",
+                                                                                "contents": [
+                                                                                {
+                                                                                    "type": "text",
+                                                                                    "text": "Option 1"
+                                                                                },
+                                                                                {
+                                                                                    "type": "image",
+                                                                                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+                                                                                    "size": "full"
+                                                                                }
+                                                                                ],
+                                                                                "flex": 0
+                                                                            }
+                                                                            },
+                                                                            {
+                                                                            "type": "bubble",
+                                                                            "body": {
+                                                                                "type": "box",
+                                                                                "layout": "vertical",
+                                                                                "contents": [
+                                                                                {
+                                                                                    "type": "text",
+                                                                                    "text": "Option 2"
+                                                                                },
+                                                                                {
+                                                                                    "type": "image",
+                                                                                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+                                                                                    "size": "full"
+                                                                                }
+                                                                                ]
+                                                                            }
+                                                                            }
+                                                                        ]
+                                                                        }
+                                                            ), TextSendMessage(text="Select flight by clicking option [1 - 5]")])
         if last_message_info["is_required"] and last_message_info["message"] == "Option Selection":
             flight = ["Flight ABC", "Flight DEF", "Flight GFHI", "Flight DErfF", "Flight GFHffI"]
             place = last_message_info["place"]
@@ -161,41 +205,7 @@ def handle_message(event):
                 "message": "",
                 "is_required": False
             }
-            line_bot_api.reply_message(event.reply_token, FlexSendMessage(
-                                                                alt_text='hello',
-                                                                contents={
-                                                                    "type": "carousel",
-                                                                    "contents": [
-                                                                        {
-                                                                        "type": "bubble",
-                                                                        "body": {
-                                                                            "type": "box",
-                                                                            "layout": "vertical",
-                                                                            "contents": [
-                                                                            {
-                                                                                "type": "image",
-                                                                                "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png"
-                                                                            }
-                                                                            ]
-                                                                        }
-                                                                        },
-                                                                        {
-                                                                        "type": "bubble",
-                                                                        "body": {
-                                                                            "type": "box",
-                                                                            "layout": "vertical",
-                                                                            "contents": [
-                                                                            {
-                                                                                "type": "image",
-                                                                                "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png"
-                                                                            }
-                                                                            ]
-                                                                        }
-                                                                        }
-                                                                    ]
-                                                                    }
-                                                            ))
-#            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to say! \U0001f615"))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to say! \U0001f615"))
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
