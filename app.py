@@ -666,11 +666,12 @@ def handle_message(event):
                 }
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
         if last_message_info["is_required"] and last_message_info["message"] == "feedback_time":
+            rating = [int(s) for s in re.findall(r'-?\d+\.?\d*', got_message)][0]
             userData[user_id] = {
-                "message": "",
-                "is_required": False
+                "message": "" if rating >= 5 else "feedback_time",
+                "is_required": rating<5
             }
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Thank you for your feedback \U0001f9e1 \U0001f9e1 \U0001f9e1"))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Thank you for your feedback \U0001f9e1 \U0001f9e1 \U0001f9e1" if rating >=5 else "Please provide a feedback about what went wrong? \U0001f97a"))
 
     else:
         if "hey" in got_message or "hello" in got_message  or "hi" in got_message :
@@ -798,7 +799,8 @@ def handle_message(event):
         except Exception as e:
             got_message = ""
             print ("error; {0}".format(e))
-        got_message = got_message.lower().strip()
+        got_message_best = got_message["alternative"]["transcript"]
+        got_message = " ".join([trans["transcript"] for trans in got_message["alternative"]]).lower().strip()
         print(got_message)
         last_message_info = {}
         if user_id in userData and userData[user_id]["is_required"]:
@@ -819,7 +821,7 @@ def handle_message(event):
             if last_message_info["is_required"] and last_message_info["message"] == "Where do you want to travel?":
                 userData[user_id] = {
                     "message": "When do you want to travel?",
-                    "place": got_message,
+                    "place": got_message_best,
                     "is_required": True
                 }
                 line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text='hello', contents={
@@ -830,7 +832,7 @@ def handle_message(event):
                                                                                                                 "contents": [
                                                                                                                 {
                                                                                                                     "type": "text",
-                                                                                                                    "text": f"When do you want to travel to {got_message}?",
+                                                                                                                    "text": f"When do you want to travel to {got_message_best}?",
                                                                                                                     "wrap": True,
                                                                                                                 },
                                                                                                                 {
@@ -860,10 +862,10 @@ def handle_message(event):
                     "message": "Option Selection",
                     "place": place,
                     "time": time,
-                    "from_place": got_message,
+                    "from_place": got_message_best,
                     "is_required": True
                 }
-                line_bot_api.reply_message(event.reply_token, [TextSendMessage(text=f"Searching for flights from {got_message.upper()} to {place.upper()} on {time.upper()}"), FlexSendMessage(
+                line_bot_api.reply_message(event.reply_token, [TextSendMessage(text=f"Searching for flights from {got_message_best.upper()} to {place.upper()} on {time.upper()}"), FlexSendMessage(
                                                                     alt_text='hello',
                                                                     contents={
                                                                             "type": "carousel",
@@ -1381,11 +1383,12 @@ def handle_message(event):
                     }
                     line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
             if last_message_info["is_required"] and last_message_info["message"] == "feedback_time":
+                rating = [int(s) for s in re.findall(r'-?\d+\.?\d*', got_message_best)][0]
                 userData[user_id] = {
                     "message": "",
                     "is_required": False
                 }
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Thank you for your feedback \U0001f9e1 \U0001f9e1 \U0001f9e1"))
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Thank you for your feedback \U0001f9e1 \U0001f9e1 \U0001f9e1" if rating >=5 else "Please provide a feedback about what went wrong? \U0001f97a"))
         else:
             if "hey" in got_message or "hello" in got_message  or "hi" in got_message :
                 userData[user_id] = {
