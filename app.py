@@ -778,7 +778,6 @@ def handle_message(event):
     print("".join(["-"]*100))
     user_id = event.source.user_id
     message_content = line_bot_api.get_message_content(event.message.id)
-    print(message_content.content)
     path1 = os.path.dirname(os.path.abspath(__file__))+"/"+str(user_id)+".m4a"
     path2 = os.path.dirname(os.path.abspath(__file__))+"/"+str(user_id)+".wav"
     fd = open(path1, 'wb')
@@ -798,6 +797,7 @@ def handle_message(event):
         except Exception as e:
             print (e)
     got_message = got_message.lower().strip()
+    print(got_message)
     last_message_info = {}
     if user_id in userData and userData[user_id]["is_required"]:
         last_message_info = userData[user_id]
