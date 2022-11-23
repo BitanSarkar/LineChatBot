@@ -799,7 +799,7 @@ def handle_message(event):
         except Exception as e:
             got_message = ""
             print ("error; {0}".format(e))
-        got_message_best = got_message["alternative"]["transcript"]
+        got_message_best = got_message["alternative"][0]["transcript"]
         got_message = " ".join([trans["transcript"] for trans in got_message["alternative"]]).lower().strip()
         print(got_message)
         last_message_info = {}
