@@ -790,7 +790,7 @@ def handle_message(event):
                 audio,
                 language="en-IN",
                 show_all=True
-            ).lower().strip()
+            )
     except sr.RequestError as e:  
         print("error; {0}".format(e))
     except Exception as e:
