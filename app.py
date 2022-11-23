@@ -42,9 +42,9 @@ def callback():
 
 @handler.add(PostbackEvent)
 def handle_postback_action(event):
+    print(event)
     print(event.data)
     print(event.params)
-    print(event)
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
