@@ -45,6 +45,8 @@ def callback():
 @handler.add(PostbackEvent)
 def handle_postback_action(event):
     print("".join(["-"]*100))
+    print(event)
+    print("".join(["-"]*100))
     print(userData)
     print("".join(["-"]*100))
     user_id = event.source.user_id
@@ -64,6 +66,8 @@ def handle_postback_action(event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    print("".join(["-"]*100))
+    print(event)
     print("".join(["-"]*100))
     print(userData)
     print("".join(["-"]*100))
