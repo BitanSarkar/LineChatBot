@@ -25,9 +25,9 @@ import numpy as np
 rate = 44100
 
 import os
-AudioSegment.converter = os.path.dirname(os.path.abspath(__file__)) + "/vendor/ffmpeg/ffmpeg.exe"
-AudioSegment.ffmpeg = os.path.dirname(os.path.abspath(__file__)) + "/vendor/ffmpeg/ffmpeg.exe"
-AudioSegment.ffprobe = os.path.dirname(os.path.abspath(__file__)) + "/vendor/ffmpeg/ffprobe.exe"
+AudioSegment.converter = os.path.dirname(os.path.abspath(__file__)) + "/vendor/ffmpeg/ffmpeg"
+AudioSegment.ffmpeg = os.path.dirname(os.path.abspath(__file__)) + "/vendor/ffmpeg/ffmpeg"
+AudioSegment.ffprobe = os.path.dirname(os.path.abspath(__file__)) + "/vendor/ffmpeg/ffprobe"
 
 app = Flask(__name__)
 
