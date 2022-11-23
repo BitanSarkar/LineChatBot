@@ -793,14 +793,10 @@ def handle_message(event):
         audio = recognizer.record(source)
         try:
             got_message = recognizer.recognize_google(audio)
-            print(got_message)
         except sr.RequestError as e:  
             print("error; {0}".format(e))
         except Exception as e:
             print (e)
-        print(got_message)
-    got_message = ""
-    print(got_message)
     last_message_info = {}
     if user_id in userData and userData[user_id]["is_required"]:
         last_message_info = userData[user_id]
