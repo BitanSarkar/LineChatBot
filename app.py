@@ -786,11 +786,7 @@ def handle_message(event):
     with rec as source:
         audio = recognizer.record(source)
     try:
-        got_message = recognizer.recognize_google(
-                audio,
-                language="en-IN",
-                show_all=True
-            )
+        got_message = recognizer.recognize_google(audio)
     except sr.RequestError as e:  
         print("error; {0}".format(e))
     except Exception as e:
