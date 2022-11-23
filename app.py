@@ -19,7 +19,7 @@ import calendar
 import datetime
 import re
 import wave
-import struct
+import struct, aifc
 import numpy as np
 
 rate = 44100
@@ -775,10 +775,14 @@ def handle_message(event):
     print("".join(["-"]*100))
     user_id = event.source.user_id
     message_content = line_bot_api.get_message_content(event.message.id)
-    packedData = map(lambda v:struct.pack('h',v), message_content.content)
-    frames = b''.join(packedData)
-    output_wave(str(user_id)+".wav", frames)
-    rec = sr.AudioFile(str(user_id)+".wav")
+    obj = aifc.open(str(user_id)+".aif",'w')
+    obj.setnchannels(1) # mono
+    obj.setsampwidth(2)
+    obj.setframerate(rate)
+    data = struct.pack('<'+'f'*len(message_content.content), *message_content.content)
+    obj.writeframes(data)
+    obj.close()
+    rec = sr.AudioFile(str(user_id)+".aif")
     with rec as source:
         audio = recognizer.record(source)
     got_message = recognizer.recognize_google(
