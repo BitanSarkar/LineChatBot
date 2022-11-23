@@ -481,7 +481,7 @@ def handle_message(event):
                     "message": "cancel_confirm",
                     "is_required": True
                 }
-                line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="abc", contents={{
+                line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="abc", contents={
                                                                                                             "type": "bubble",
                                                                                                             "body": {
                                                                                                                 "type": "box",
@@ -521,7 +521,7 @@ def handle_message(event):
                                                                                                                 }
                                                                                                                 ]
                                                                                                             }
-                                                                                                        }}))
+                                                                                                        }))
         if last_message_info["is_required"] and last_message_info["message"] == "cancel_confirm":
             choice = [int(s) for s in re.findall(r'-?\d+\.?\d*', got_message)][0]
             image_url = ["https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.50+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hotel/WhatsApp+Image+2022-11-22+at+12.59.20+PM.jpeg"]
