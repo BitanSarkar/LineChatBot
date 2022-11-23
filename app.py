@@ -785,10 +785,16 @@ def handle_message(event):
     rec = sr.AudioFile(str(user_id)+".aif")
     with rec as source:
         audio = recognizer.record(source)
-    got_message = recognizer.recognize_google(
-            audio,
-            language="en-US"
-        ).lower().strip()
+    try:
+        got_message = recognizer.recognize_google(
+                audio,
+                language="en-IN",
+                show_all=True
+            ).lower().strip()
+    except sr.RequestError as e:  
+        print("error; {0}".format(e))
+    except Exception as e:
+        print (e)
     print(got_message)
     got_message = ""
     print(got_message)
