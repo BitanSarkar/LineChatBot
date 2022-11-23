@@ -52,7 +52,7 @@ def handle_postback_action(event):
     if user_id in userData and userData[user_id]["is_required"]:
         last_message_info = userData[user_id]
         if last_message_info["is_required"] and last_message_info["message"] == "When do you want to travel?":
-            date = event.postback.params.data
+            date = event.postback.params.date
             date_time = datetime.datetime.strptime(date, '%Y-%m-%d')
             userData[user_id] = {
                 "message": "In which city are you right now?",
@@ -99,16 +99,24 @@ def handle_message(event):
                                                                                                             "contents": [
                                                                                                             {
                                                                                                                 "type": "text",
-                                                                                                                "text": f"When do you want to travel to {got_message.upper()}?"
+                                                                                                                "text": "When do you want to travel?"
                                                                                                             },
                                                                                                             {
                                                                                                                 "type": "button",
                                                                                                                 "action": {
                                                                                                                 "type": "datetimepicker",
-                                                                                                                "label": "pick up a date",
+                                                                                                                "label": "Select a date",
                                                                                                                 "data": "date",
                                                                                                                 "mode": "date"
-                                                                                                                }
+                                                                                                                },
+                                                                                                                "color": "#33cc33",
+                                                                                                                "position": "relative",
+                                                                                                                "style": "primary",
+                                                                                                                "flex": 0,
+                                                                                                                "height": "sm",
+                                                                                                                "offsetStart": "none",
+                                                                                                                "gravity": "bottom",
+                                                                                                                "margin": "md"
                                                                                                             }
                                                                                                             ]
                                                                                                         }
