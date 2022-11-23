@@ -104,7 +104,8 @@ def handle_message(event):
                                                                                                             "contents": [
                                                                                                             {
                                                                                                                 "type": "text",
-                                                                                                                "text": f"When do you want to travel to {got_message}?"
+                                                                                                                "text": f"When do you want to travel to {got_message}?",
+                                                                                                                "wrap": True,
                                                                                                             },
                                                                                                             {
                                                                                                                 "type": "button",
@@ -349,7 +350,7 @@ def handle_message(event):
                     "time": time,
                     "is_required": True
                 }
-                line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="Confirming your booking! \U0001f610"), TextSendMessage(text=f"Your booking was confirmed! \U0001f60d, you confirmation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 10)) }, reservation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 5)) }"), TextSendMessage(text=f"Where are you going to stay in {place.upper()} on {time}? Do you want to check out amazing hotels in {place.upper()}"), FlexSendMessage(
+                line_bot_api.reply_message(event.reply_token, [TextSendMessage(text=f"Your booking was confirmed! \U0001f60d, you confirmation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 10)) }, reservation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 5)) }"), TextSendMessage(text=f"Where are you going to stay in {place.upper()} on {time}? Do you want to check out amazing hotels in {place.upper()}"), FlexSendMessage(
                                                                 alt_text='hello',
                                                                 contents={
                                                                             "type": "carousel",
