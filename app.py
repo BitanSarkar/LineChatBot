@@ -59,7 +59,7 @@ def handle_postback_action(event):
             userData[user_id] = {
                 "message": "In which city are you right now?",
                 "place": last_message_info["place"],
-                "time": str(date_time.date) + " " + str(date_time.strftime("%B")),
+                "time": str(date_time.day) + " " + str(date_time.strftime("%B")),
                 "is_required": True
             }
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="In which city are you right now?"))
