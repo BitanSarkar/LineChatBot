@@ -12,6 +12,8 @@ from linebot.models import (
 
 import string    
 import random
+import calendar
+import datetime
 
 import os
 
@@ -42,9 +44,23 @@ def callback():
 
 @handler.add(PostbackEvent)
 def handle_postback_action(event):
-    print(event)
-    print(event.data)
-    print(event.params)
+    print("".join(["-"]*100))
+    print(userData)
+    print("".join(["-"]*100))
+    user_id = event.source.user_id
+    last_message_info = {}
+    if user_id in userData and userData[user_id]["is_required"]:
+        last_message_info = userData[user_id]
+        if last_message_info["is_required"] and last_message_info["message"] == "When do you want to travel?":
+            date = event.postback.params.data
+            date_time = datetime.datetime.strptime(date, '%Y-%m-%d')
+            userData[user_id] = {
+                "message": "In which city are you right now?",
+                "place": last_message_info["place"],
+                "time": date_time.date + " " + date_time.strftime("%B"),
+                "is_required": True
+            }
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="In which city are you right now?"))
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -97,14 +113,6 @@ def handle_message(event):
                                                                                                             ]
                                                                                                         }
                                                                                                     }))
-        if last_message_info["is_required"] and last_message_info["message"] == "When do you want to travel?":
-            userData[user_id] = {
-                "message": "In which city are you right now?",
-                "place": last_message_info["place"],
-                "time": got_message,
-                "is_required": True
-            }
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="In which city are you right now?"))
         if last_message_info["is_required"] and last_message_info["message"] == "In which city are you right now?":
             place = last_message_info["place"]
             time = last_message_info["time"]
