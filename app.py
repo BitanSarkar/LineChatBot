@@ -756,15 +756,20 @@ def handle_message(event):
     print("".join(["-"]*100))
     print(userData)
     print("".join(["-"]*100))
+    user_id = event.source.user_id
     message_content = line_bot_api.get_message_content(event.message.id)
-    # got_message = recognizer.recognize_google(
-    #         message_content.response, 
-    #         language="en-US"
-    #     ).lower().strip()
-    print(message_content.response.json())
+    with open(str(user_id)+".wav", 'wb') as fd:
+        for chunk in message_content.iter_content():
+            fd.write(chunk)
+    rec = sr.AudioFile(str(user_id)+".wav")
+    with rec as source:
+        audio = recognizer.record(source)
+    got_message = recognizer.recognize_google(
+            audio,
+            language="en-US"
+        ).lower().strip()
     got_message = ""
     print(got_message)
-    user_id = event.source.user_id
     last_message_info = {}
     if user_id in userData and userData[user_id]["is_required"]:
         last_message_info = userData[user_id]
