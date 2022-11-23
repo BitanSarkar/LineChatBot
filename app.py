@@ -1,6 +1,7 @@
 from flask import Flask, request, abort
 import speech_recognition as sr
-
+from os import path
+from pydub import AudioSegment
 recognizer = sr.Recognizer()
 
 from linebot import (
@@ -776,19 +777,18 @@ def handle_message(event):
     user_id = event.source.user_id
     message_content = line_bot_api.get_message_content(event.message.id)
     print(message_content.content)
-    obj = aifc.open(str(user_id)+".aif",'w')
-    obj.setnchannels(1) # mono
-    obj.setsampwidth(2)
-    obj.setframerate(rate)
-    data = struct.pack('RIFF'+'f'*len(message_content.content), *message_content.content)
-    obj.writeframes(data)
-    obj.close()
-    rec = sr.AudioFile(str(user_id)+".aif")
+    with open(str(user_id)+".mp4", 'rb') as wfile:
+        wfile.write(message_content.content)    
+    wfile.close()
+    sound = AudioSegment.from_file(str(user_id)+".mp4",format="mp4")
+    sound.export(str(user_id)+".wav", format="wav")
+    rec = sr.AudioFile(str(user_id)+".wav")
     got_message = ""
     with rec as source:
         audio = recognizer.record(source)
         try:
             got_message = recognizer.recognize_google(audio)
+            print(got_message)
         except sr.RequestError as e:  
             print("error; {0}".format(e))
         except Exception as e:
