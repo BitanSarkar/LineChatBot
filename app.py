@@ -14,6 +14,7 @@ import string
 import random
 import calendar
 import datetime
+import re
 
 import os
 
@@ -402,6 +403,181 @@ def handle_message(event):
                     "is_required": False
                 }
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
+        if last_message_info["is_required"] and last_message_info["message"] == "Booking list finder":
+            if "view" in got_message or "details" in got_message:
+                userData[user_id] = {
+                    "message": "which one do you want to view",
+                    "is_required": True
+                }
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Which one do you want to view details? Type [1 - 3]"))
+            elif "cancel" in got_message:
+                userData[user_id] = {
+                    "message": "which one do you want to cancel",
+                    "is_required": True
+                }
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Which one do you want to cancel? Type [1 - 3]"))
+            else:
+                userData[user_id] = {
+                    "message": "",
+                    "is_required": False
+                }
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
+        if last_message_info["is_required"] and last_message_info["message"] == "which one do you want to view":
+            choice = [int(s) for s in re.findall(r'-?\d+\.?\d*', got_message)][0]
+            image_url = ["https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.50+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hotel/WhatsApp+Image+2022-11-22+at+12.59.20+PM.jpeg"]
+            bookingIds = ["booking ID GUYU98983", "booking ID FFY348383","reservation ID YUI698HLL"]
+            if "view" in got_message or "details" in got_message:
+                userData[user_id] = {
+                    "message": "",
+                    "is_required": False
+                }
+                line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="abc", contents={{
+                                                                                                            "type": "bubble",
+                                                                                                            "body": {
+                                                                                                                "type": "box",
+                                                                                                                "layout": "vertical",
+                                                                                                                "contents": [
+                                                                                                                {
+                                                                                                                    "type": "text",
+                                                                                                                    "text": "Here is the booking you are looking for! \U0001f604",
+                                                                                                                    "wrap": True,
+                                                                                                                    "weight": "bold"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type": "image",
+                                                                                                                    "url": image_url[choice-1],
+                                                                                                                    "align": "center",
+                                                                                                                    "gravity": "center",
+                                                                                                                    "size": "full",
+                                                                                                                    "margin": "none",
+                                                                                                                    "position": "relative",
+                                                                                                                    "aspectMode": "fit"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type": "text",
+                                                                                                                    "contents": [
+                                                                                                                    {
+                                                                                                                        "type": "span",
+                                                                                                                        "text": "Your "
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                        "type": "span",
+                                                                                                                        "text": bookingIds[choice-1],
+                                                                                                                        "weight": "bold",
+                                                                                                                        "style": "italic"
+                                                                                                                    }
+                                                                                                                    ],
+                                                                                                                    "wrap": True
+                                                                                                                }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        }}))
+        if last_message_info["is_required"] and last_message_info["message"] == "which one do you want to cancel":
+            choice = [int(s) for s in re.findall(r'-?\d+\.?\d*', got_message)][0]
+            image_url = ["https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.50+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hotel/WhatsApp+Image+2022-11-22+at+12.59.20+PM.jpeg"]
+            bookingIds = ["booking ID GUYU98983", "booking ID FFY348383","reservation ID YUI698HLL"]
+            if "view" in got_message or "details" in got_message:
+                userData[user_id] = {
+                    "message": "cancel_confirm",
+                    "is_required": True
+                }
+                line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="abc", contents={{
+                                                                                                            "type": "bubble",
+                                                                                                            "body": {
+                                                                                                                "type": "box",
+                                                                                                                "layout": "vertical",
+                                                                                                                "contents": [
+                                                                                                                {
+                                                                                                                    "type": "text",
+                                                                                                                    "text": "Are you sure you want to cancel? Cancellation charges may apply! \U0001f97a",
+                                                                                                                    "wrap": True,
+                                                                                                                    "weight": "bold"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type": "image",
+                                                                                                                    "url": image_url[choice-1],
+                                                                                                                    "align": "center",
+                                                                                                                    "gravity": "center",
+                                                                                                                    "size": "full",
+                                                                                                                    "margin": "none",
+                                                                                                                    "position": "relative",
+                                                                                                                    "aspectMode": "fit"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type": "text",
+                                                                                                                    "contents": [
+                                                                                                                    {
+                                                                                                                        "type": "span",
+                                                                                                                        "text": "Your "
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                        "type": "span",
+                                                                                                                        "text": bookingIds[choice-1],
+                                                                                                                        "weight": "bold",
+                                                                                                                        "style": "italic"
+                                                                                                                    }
+                                                                                                                    ],
+                                                                                                                    "wrap": True
+                                                                                                                }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        }}))
+        if last_message_info["is_required"] and last_message_info["message"] == "cancel_confirm":
+            choice = [int(s) for s in re.findall(r'-?\d+\.?\d*', got_message)][0]
+            image_url = ["https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.50+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hotel/WhatsApp+Image+2022-11-22+at+12.59.20+PM.jpeg"]
+            bookingIds = ["booking ID GUYU98983", "booking ID FFY348383","reservation ID YUI698HLL"]
+            if "view" in got_message or "details" in got_message:
+                userData[user_id] = {
+                    "message": "",
+                    "is_required": False
+                }
+                line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="abc", contents={{
+                                                                                                            "type": "bubble",
+                                                                                                            "body": {
+                                                                                                                "type": "box",
+                                                                                                                "layout": "vertical",
+                                                                                                                "contents": [
+                                                                                                                {
+                                                                                                                    "type": "text",
+                                                                                                                    "text": "A ticket has been raise for the cancellation of this booking! \U0001fae4",
+                                                                                                                    "wrap": True,
+                                                                                                                    "weight": "bold"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type": "image",
+                                                                                                                    "url": image_url[choice-1],
+                                                                                                                    "align": "center",
+                                                                                                                    "gravity": "center",
+                                                                                                                    "size": "full",
+                                                                                                                    "margin": "none",
+                                                                                                                    "position": "relative",
+                                                                                                                    "aspectMode": "fit"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type": "text",
+                                                                                                                    "contents": [
+                                                                                                                    {
+                                                                                                                        "type": "span",
+                                                                                                                        "text": "Your "
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                        "type": "span",
+                                                                                                                        "text": bookingIds[choice-1],
+                                                                                                                        "weight": "bold",
+                                                                                                                        "style": "italic"
+                                                                                                                    }
+                                                                                                                    ],
+                                                                                                                    "wrap": True
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type": "text",
+                                                                                                                    "text": "\n\n\n\n*Any further communication would be done through your registered email or phone number! ",
+                                                                                                                    "wrap": True,
+                                                                                                                    "size": "xs"
+                                                                                                                }
+                                                                                                                ]
+                                                                                                            }
+                                                                                                        }}))
     else:
         if "hey" in got_message or "hello" in got_message  or "hi" in got_message :
             userData[user_id] = {
@@ -474,6 +650,12 @@ def handle_message(event):
                                                                     }
                                                                     }
                                                             )])
+        elif "list" in got_message:
+            userData[user_id] = {
+                    "message": "Booking list finder",
+                    "is_required": True
+                }
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Here are your bookings\n1. Bangkok Airways 30th November booking ID GUYU98983\n2. Thai Smile 12th December booking ID FFY348383\n3. Hotel Avani Atrium Bangkok 15th December reservation ID YUI698HLL"))
         else:
             userData[user_id] = {
                 "message": "",
