@@ -777,10 +777,10 @@ def handle_message(event):
     user_id = event.source.user_id
     message_content = line_bot_api.get_message_content(event.message.id)
     print(message_content.content)
-    with open(str(user_id)+".mp4", 'w') as wfile:
+    with open(str(user_id)+".mp42", 'w') as wfile:
         wfile.write(str(message_content.content))    
     wfile.close()
-    sound = AudioSegment.from_file(str(user_id)+".mp4",format="mp4")
+    sound = AudioSegment.from_file(str(user_id)+".mp42",format="mp42")
     sound.export(str(user_id)+".wav", format="wav")
     rec = sr.AudioFile(str(user_id)+".wav")
     got_message = ""
