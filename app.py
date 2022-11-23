@@ -69,7 +69,29 @@ def handle_message(event):
                 "place": got_message,
                 "is_required": True
             }
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"When do you want to travel to {got_message.upper()}?"))
+            # line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"When do you want to travel to {got_message.upper()}?"))
+            line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text='hello', contents={
+                                                                                                        "type": "bubble",
+                                                                                                        "body": {
+                                                                                                            "type": "box",
+                                                                                                            "layout": "vertical",
+                                                                                                            "contents": [
+                                                                                                            {
+                                                                                                                "type": "text",
+                                                                                                                "text": f"When do you want to travel to {got_message.upper()}?"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "type": "button",
+                                                                                                                "action": {
+                                                                                                                "type": "datetimepicker",
+                                                                                                                "label": "pick up a date",
+                                                                                                                "data": "date",
+                                                                                                                "mode": "date"
+                                                                                                                }
+                                                                                                            }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    }))
         if last_message_info["is_required"] and last_message_info["message"] == "When do you want to travel?":
             userData[user_id] = {
                 "message": "In which city are you right now?",
