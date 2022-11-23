@@ -797,6 +797,7 @@ def handle_message(event):
             print("error; {0}".format(e))
         except Exception as e:
             print (e)
+    got_message = got_message.lower().trim()
     last_message_info = {}
     if user_id in userData and userData[user_id]["is_required"]:
         last_message_info = userData[user_id]
