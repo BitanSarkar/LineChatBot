@@ -431,7 +431,7 @@ def handle_message(event):
                     "message": "",
                     "is_required": False
                 }
-                line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="abc", contents={{
+                line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="abc", contents={
                                                                                                             "type": "bubble",
                                                                                                             "body": {
                                                                                                                 "type": "box",
@@ -471,7 +471,7 @@ def handle_message(event):
                                                                                                                 }
                                                                                                                 ]
                                                                                                             }
-                                                                                                        }}))
+                                                                                                        }))
         if last_message_info["is_required"] and last_message_info["message"] == "which one do you want to cancel":
             choice = [int(s) for s in re.findall(r'-?\d+\.?\d*', got_message)][0]
             image_url = ["https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.50+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hotel/WhatsApp+Image+2022-11-22+at+12.59.20+PM.jpeg"]
@@ -526,12 +526,12 @@ def handle_message(event):
             choice = [int(s) for s in re.findall(r'-?\d+\.?\d*', got_message)][0]
             image_url = ["https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.50+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hotel/WhatsApp+Image+2022-11-22+at+12.59.20+PM.jpeg"]
             bookingIds = ["booking ID GUYU98983", "booking ID FFY348383","reservation ID YUI698HLL"]
-            if "view" in got_message or "details" in got_message:
+            if "yes" in got_message or "yup" in got_message:
                 userData[user_id] = {
                     "message": "",
                     "is_required": False
                 }
-                line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="abc", contents={{
+                line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="abc", contents={
                                                                                                             "type": "bubble",
                                                                                                             "body": {
                                                                                                                 "type": "box",
@@ -577,7 +577,14 @@ def handle_message(event):
                                                                                                                 }
                                                                                                                 ]
                                                                                                             }
-                                                                                                        }}))
+                                                                                                        }))
+            else:
+                userData[user_id] = {
+                    "message": "",
+                    "is_required": False
+                }
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
+
     else:
         if "hey" in got_message or "hello" in got_message  or "hi" in got_message :
             userData[user_id] = {
