@@ -761,7 +761,7 @@ def handle_message(event):
     #         message_content.response, 
     #         language="en-US"
     #     ).lower().strip()
-    print(message_content.response)
+    print(message_content.response.json())
     got_message = ""
     print(got_message)
     user_id = event.source.user_id
