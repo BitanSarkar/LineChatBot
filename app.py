@@ -445,10 +445,30 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Looking for cars on {time.upper()} in {place.upper()}"))
             else:
                 userData[user_id] = {
-                    "message": "",
-                    "is_required": False
+                    "message": "feedback_time",
+                    "is_required": True
                 }
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
+                line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"),
+                                                                                                        FlexSendMessage(alt_text="feedback", contents={
+                                                                                                                                                        "type": "bubble",
+                                                                                                                                                        "body": {
+                                                                                                                                                            "type": "box",
+                                                                                                                                                            "layout": "horizontal",
+                                                                                                                                                            "contents": [
+                                                                                                                                                            {
+                                                                                                                                                                "type": "image",
+                                                                                                                                                                "url": "https://i.ibb.co/Xy109LY/final-i-guess.png"
+                                                                                                                                                            },
+                                                                                                                                                            {
+                                                                                                                                                                "type": "text",
+                                                                                                                                                                "text": "Did you like me? Rate me out of 10, and give some feedback!",
+                                                                                                                                                                "wrap": True,
+                                                                                                                                                                "weight": "bold",
+                                                                                                                                                                "style": "italic"
+                                                                                                                                                            }
+                                                                                                                                                            ]
+                                                                                                                                                        }
+                                                                                                                                                        })])
         if last_message_info["is_required"] and last_message_info["message"] == "Booking list finder":
             choice = [int(s) for s in re.findall(r'-?\d+\.?\d*', got_message)][0]
             image_url = ["https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.50+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hotel/WhatsApp+Image+2022-11-22+at+12.59.20+PM.jpeg"]
@@ -558,10 +578,10 @@ def handle_message(event):
             bookingIds = ["booking ID GUYU98983", "booking ID FFY348383","reservation ID YUI698HLL"]
             if "yes" in got_message or "yup" in got_message:
                 userData[user_id] = {
-                    "message": "",
-                    "is_required": False
+                    "message": "feedback_time",
+                    "is_required": True
                 }
-                line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="abc", contents={
+                line_bot_api.reply_message(event.reply_token, [FlexSendMessage(alt_text="abc", contents={
                                                                                                             "type": "bubble",
                                                                                                             "body": {
                                                                                                                 "type": "box",
@@ -607,13 +627,40 @@ def handle_message(event):
                                                                                                                 }
                                                                                                                 ]
                                                                                                             }
-                                                                                                        }))
+                                                                                                        }),
+                                                                                                        FlexSendMessage(alt_text="feedback", contents={
+                                                                                                                                                        "type": "bubble",
+                                                                                                                                                        "body": {
+                                                                                                                                                            "type": "box",
+                                                                                                                                                            "layout": "horizontal",
+                                                                                                                                                            "contents": [
+                                                                                                                                                            {
+                                                                                                                                                                "type": "image",
+                                                                                                                                                                "url": "https://i.ibb.co/Xy109LY/final-i-guess.png"
+                                                                                                                                                            },
+                                                                                                                                                            {
+                                                                                                                                                                "type": "text",
+                                                                                                                                                                "text": "Did you like me? Rate me out of 10, and give some feedback!",
+                                                                                                                                                                "wrap": True,
+                                                                                                                                                                "weight": "bold",
+                                                                                                                                                                "style": "italic"
+                                                                                                                                                            }
+                                                                                                                                                            ]
+                                                                                                                                                        }
+                                                                                                                                                        })])
             else:
                 userData[user_id] = {
                     "message": "",
                     "is_required": False
                 }
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
+        if last_message_info["is_required"] and last_message_info["message"] == "feedback_time":
+            userData[user_id] = {
+                "message": "",
+                "is_required": False
+            }
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Thank you for your feedback \U0001f9e1 \U0001f9e1 \U0001f9e1"))
+
     else:
         if "hey" in got_message or "hello" in got_message  or "hi" in got_message :
             userData[user_id] = {
