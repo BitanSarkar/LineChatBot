@@ -779,8 +779,8 @@ def handle_message(event):
     user_id = event.source.user_id
     message_content = line_bot_api.get_message_content(event.message.id)
     print(message_content.content)
-    path1 = os.path.dirname(os.path.abspath(__file__))+"\\"+str(user_id)+".m4a"
-    path2 = os.path.dirname(os.path.abspath(__file__)+"\\"+str(user_id))+".wav"
+    path1 = os.path.dirname(os.path.abspath(__file__))+"/"+str(user_id)+".m4a"
+    path2 = os.path.dirname(os.path.abspath(__file__))+"/"+str(user_id)+".wav"
     fd = open(path1, 'wb')
     for chunk in message_content.iter_content():
         fd.write(chunk)
