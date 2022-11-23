@@ -779,7 +779,7 @@ def handle_message(event):
     print(message_content.content)
     path1 = os.path.abspath(__file__)+"\\"+str(user_id)+".m4a"
     path2 = os.path.abspath(__file__)+"\\"+str(user_id)+".wav"
-    with open(os.path.dirname(path1), 'wb') as fd:
+    with open(path1, 'wb') as fd:
         for chunk in message_content.iter_content():
             fd.write(chunk)
         sound = AudioSegment.from_file(path1,format="m4a")
