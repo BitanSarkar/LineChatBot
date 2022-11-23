@@ -1,7 +1,7 @@
 from flask import Flask, request, abort
 import speech_recognition as sr
 
-import speech_recognition as sr
+recognizer = sr.Recognizer()
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -757,10 +757,12 @@ def handle_message(event):
     print(userData)
     print("".join(["-"]*100))
     message_content = line_bot_api.get_message_content(event.message.id)
-    got_message = recognizer.recognize_google(
-            message_content, 
-            language="en-US"
-        ).lower().strip()
+    # got_message = recognizer.recognize_google(
+    #         message_content.response, 
+    #         language="en-US"
+    #     ).lower().strip()
+    print(message_content.response)
+    got_message = ""
     print(got_message)
     user_id = event.source.user_id
     last_message_info = {}
