@@ -792,10 +792,12 @@ def handle_message(event):
         try:
             got_message = recognizer.recognize_google(audio)
             print(got_message)
-        except sr.RequestError as e:  
+        except sr.RequestError as e:
+            got_message = ""
             print("error; {0}".format(e))
         except Exception as e:
-            print (e)
+            got_message = ""
+            print ("error; {0}".format(e))
         got_message = got_message.lower().strip()
         print(got_message)
         last_message_info = {}
