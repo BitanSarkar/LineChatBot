@@ -762,7 +762,7 @@ def output_wave(path, frames):
     #     output.writeframes(frames)
 
     output = wave.open(path,'w')
-    output.setparams((2,2,rate,0,'NONE','not compressed'))
+    output.setparams((1,1,rate,0,'NONE','not compressed'))
     output.writeframes(frames)
     output.close()
 
