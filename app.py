@@ -775,7 +775,7 @@ def handle_message(event):
     print("".join(["-"]*100))
     user_id = event.source.user_id
     message_content = line_bot_api.get_message_content(event.message.id)
-    packedData = map(lambda v:struct.pack('h',v), message_content.content())
+    packedData = map(lambda v:struct.pack('h',v), message_content.content)
     frames = b''.join(packedData)
     output_wave(str(user_id)+".wav", frames)
     rec = sr.AudioFile(str(user_id)+".wav")
