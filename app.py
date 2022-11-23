@@ -1,10 +1,6 @@
 from flask import Flask, request, abort
 import speech_recognition as sr
-from os import path
 from pydub import AudioSegment
-AudioSegment.converter = os.path.abspath(__file__) + "\\vendor\\ffmpeg\\ffmpeg.exe"
-AudioSegment.ffmpeg = os.path.abspath(__file__) + "\\vendor\\ffmpeg\\ffmpeg.exe"
-AudioSegment.ffprobe = os.path.abspath(__file__) + "\\vendor\\ffmpeg\\ffprobe.exe"
 recognizer = sr.Recognizer()
 
 from linebot import (
@@ -29,6 +25,9 @@ import numpy as np
 rate = 44100
 
 import os
+AudioSegment.converter = os.path.abspath(__file__) + "\\vendor\\ffmpeg\\ffmpeg.exe"
+AudioSegment.ffmpeg = os.path.abspath(__file__) + "\\vendor\\ffmpeg\\ffmpeg.exe"
+AudioSegment.ffprobe = os.path.abspath(__file__) + "\\vendor\\ffmpeg\\ffprobe.exe"
 
 app = Flask(__name__)
 
