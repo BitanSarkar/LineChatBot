@@ -281,7 +281,7 @@ def handle_message(event):
                                                                         }
                                                             )])
         if last_message_info["is_required"] and last_message_info["message"] == "Option Selection":
-            flight = ["Flight ABC", "Flight DEF", "Flight GFHI", "Flight DErfF", "Flight GFHffI"]
+            flight = ["https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.30+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.30+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.50+PM.jpeg"]
             place = last_message_info["place"]
             time = last_message_info["time"]
             from_place = last_message_info["from_place"]
@@ -293,18 +293,63 @@ def handle_message(event):
                 "flight_search": flight[int(got_message)-1],
                 "is_required": True
             }
-            line_bot_api.reply_message(event.reply_token, messages=TextSendMessage(text=f"Are you sure you want to book this flight from {from_place.upper()} to {place.upper()}?\n\n\n\nSeamless booking for you, as you are a valued SCB customer!"))
+            line_bot_api.reply_message(event.reply_token, messages=FlexSendMessage( alt_text=f"Are you sure you want to book this flight from {from_place.upper()} to {place.upper()}?\n\n\n\nSeamless booking for you, as you are a valued SCB customer!",
+                                                                                    contents={
+                                                                                                "type": "bubble",
+                                                                                                "hero": {
+                                                                                                    "type": "image",
+                                                                                                    "url": flight[int(got_message)-1],
+                                                                                                    "size": "full"
+                                                                                                },
+                                                                                                "body": {
+                                                                                                    "type": "box",
+                                                                                                    "layout": "vertical",
+                                                                                                    "contents": [
+                                                                                                    {
+                                                                                                        "type": "button",
+                                                                                                        "action": {
+                                                                                                        "type": "uri",
+                                                                                                        "label": "Continue booking here",
+                                                                                                        "uri": "https://flights.booking.com/checkout/pax/d7699_H4sIAAAAAAAA_y2Qb2-CMBCHP42-o9CCIibNgqCJA4YO_8y9aaAWZDrZaJ2un343Mb3c8_wuzSXtQakvOTbN8lRXByWN-oyqRjVVrgTizadZttCKpjnW58rM69YMgvUkiogTTgMbQzOxacDh492TuClDtpz260KgXHJqRw9t6RCRMMxePM-9j3ijqINIauOFH2Xb9_twT5Pgeku1L5OVdOJwtk71LAWmqZ7rOJzrVD8vEj1bLtcq3lhXmRxHOtlMJpml3lbLnh1C3VcJzilGyHE9fM9NLimxOuWKklGne0Vf4yzOHlFRG3sD2-7ijWKCXasvxUlwVTfnSPzS4dR1DXi94IQYGzYLMbEM-Igu90igL9_F1w9Iz_ahKmYhC3gAYmDOsOUhTFzwgnk7AGf-ALBnuCjdcpiDC0ZGcOdfS-ZMATXDqNv0weZbgGaXUauO1R_---gVwQEAAA../52588edf926412b959f90deaad6c5ff8cce3e6b1e15fc45f5c9b8f40912b23ef0d2bf9e0a2a4fa3975833cda630c3cbec5299f027b4c0b53a1766419479a8158a83d7905f1c7823d8fc2a63ae1a32378d12ed7fa89b3421a95b8?aid=304142&label=gen173bo-1FCAQoggJCCHNlYXJjaF9YSDFYA2hsiAEBmAExuAEXyAEM2AEB6AEB-AEDiAIBmAICqAIDuAKjvPebBsACAdICJGJhOGNmYmFiLTAzNWEtNGYzYi1hMDZiLWJmYmFjY2Q0MWJiY9gCBeACAQ",
+                                                                                                        "altUri": {
+                                                                                                            "desktop": "https://flights.booking.com/checkout/pax/d7699_H4sIAAAAAAAA_y2Qb2-CMBCHP42-o9CCIibNgqCJA4YO_8y9aaAWZDrZaJ2un343Mb3c8_wuzSXtQakvOTbN8lRXByWN-oyqRjVVrgTizadZttCKpjnW58rM69YMgvUkiogTTgMbQzOxacDh492TuClDtpz260KgXHJqRw9t6RCRMMxePM-9j3ijqINIauOFH2Xb9_twT5Pgeku1L5OVdOJwtk71LAWmqZ7rOJzrVD8vEj1bLtcq3lhXmRxHOtlMJpml3lbLnh1C3VcJzilGyHE9fM9NLimxOuWKklGne0Vf4yzOHlFRG3sD2-7ijWKCXasvxUlwVTfnSPzS4dR1DXi94IQYGzYLMbEM-Igu90igL9_F1w9Iz_ahKmYhC3gAYmDOsOUhTFzwgnk7AGf-ALBnuCjdcpiDC0ZGcOdfS-ZMATXDqNv0weZbgGaXUauO1R_---gVwQEAAA../52588edf926412b959f90deaad6c5ff8cce3e6b1e15fc45f5c9b8f40912b23ef0d2bf9e0a2a4fa3975833cda630c3cbec5299f027b4c0b53a1766419479a8158a83d7905f1c7823d8fc2a63ae1a32378d12ed7fa89b3421a95b8?aid=304142&label=gen173bo-1FCAQoggJCCHNlYXJjaF9YSDFYA2hsiAEBmAExuAEXyAEM2AEB6AEB-AEDiAIBmAICqAIDuAKjvPebBsACAdICJGJhOGNmYmFiLTAzNWEtNGYzYi1hMDZiLWJmYmFjY2Q0MWJiY9gCBeACAQ"
+                                                                                                        }
+                                                                                                        },
+                                                                                                        "height": "md",
+                                                                                                        "style": "primary",
+                                                                                                        "color": "#009933",
+                                                                                                        "gravity": "center"
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "type": "button",
+                                                                                                        "action": {
+                                                                                                        "type": "uri",
+                                                                                                        "label": "Continue booking through App",
+                                                                                                        "uri": "https://play.google.com/store/apps/details?id=th.in.robinhood&hl=en_US&gl=US",
+                                                                                                        "altUri": {
+                                                                                                            "desktop": "https://play.google.com/store/apps/details?id=th.in.robinhood&hl=en_US&gl=US"
+                                                                                                        }
+                                                                                                        },
+                                                                                                        "style": "primary",
+                                                                                                        "color": "#a300cc",
+                                                                                                        "margin": "lg",
+                                                                                                        "position": "relative",
+                                                                                                        "gravity": "center"
+                                                                                                    }
+                                                                                                    ]
+                                                                                                }
+                                                                                            }))
         if last_message_info["is_required"] and last_message_info["message"] == "confirmation":
             place = last_message_info["place"]
             time = last_message_info["time"]
-            if "yes" in got_message or "yup" in got_message:
+            if "check" in got_message and "status" in got_message and "last" in got_message:
                 userData[user_id] = {
                     "message": "Comfirm_yes",
                     "place": place,
                     "time": time,
                     "is_required": True
                 }
-                line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="Confirming your booking! \U0001f610"), TextSendMessage(text=f"Your booking is confirmed! \U0001f60d, you confirmation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 10)) }, reservation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 5)) }"), TextSendMessage(text=f"Where are you going to stay in {place.upper()} on {time}? Do you want to check out amazing hotels in {place.upper()}"), FlexSendMessage(
+                line_bot_api.reply_message(event.reply_token, [TextSendMessage(text="Confirming your booking! \U0001f610"), TextSendMessage(text=f"Your booking was confirmed! \U0001f60d, you confirmation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 10)) }, reservation ID is {''.join(random.choices(string.ascii_uppercase + string.digits, k = 5)) }"), TextSendMessage(text=f"Where are you going to stay in {place.upper()} on {time}? Do you want to check out amazing hotels in {place.upper()}"), FlexSendMessage(
                                                                 alt_text='hello',
                                                                 contents={
                                                                             "type": "carousel",
