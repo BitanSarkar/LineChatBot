@@ -40,6 +40,10 @@ def callback():
 
     return 'OK'
 
+@handler.add(PostbackAction)
+def handle_postback_action(event):
+    print(event)
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("".join(["-"]*100))
@@ -69,7 +73,6 @@ def handle_message(event):
                 "place": got_message,
                 "is_required": True
             }
-            # line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"When do you want to travel to {got_message.upper()}?"))
             line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text='hello', contents={
                                                                                                         "type": "bubble",
                                                                                                         "body": {
