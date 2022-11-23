@@ -18,6 +18,11 @@ import random
 import calendar
 import datetime
 import re
+import wave
+import struct
+import numpy as np
+
+rate = 44100
 
 import os
 
@@ -749,6 +754,18 @@ def handle_message(event):
             }
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to say! \U0001f615"))
 
+def output_wave(path, frames):
+    # Python 3.X allows the use of the with statement
+    # with wave.open(path,'w') as output:
+    #     # Set parameters for output WAV file
+    #     output.setparams((2,2,rate,0,'NONE','not compressed'))
+    #     output.writeframes(frames)
+
+    output = wave.open(path,'w')
+    output.setparams((2,2,rate,0,'NONE','not compressed'))
+    output.writeframes(frames)
+    output.close()
+
 @handler.add(MessageEvent, message=AudioMessage)
 def handle_message(event):
     print("".join(["-"]*100))
@@ -758,9 +775,9 @@ def handle_message(event):
     print("".join(["-"]*100))
     user_id = event.source.user_id
     message_content = line_bot_api.get_message_content(event.message.id)
-    with open(str(user_id)+".wav", 'wb') as fd:
-        for chunk in message_content.iter_content():
-            fd.write(chunk)
+    packedData = map(lambda v:struct.pack('h',v), message_content.content())
+    frames = b''.join(packedData)
+    output_wave(str(user_id)+".wav", frames)
     rec = sr.AudioFile(str(user_id)+".wav")
     with rec as source:
         audio = recognizer.record(source)
@@ -768,6 +785,7 @@ def handle_message(event):
             audio,
             language="en-US"
         ).lower().strip()
+    print(got_message)
     got_message = ""
     print(got_message)
     last_message_info = {}
