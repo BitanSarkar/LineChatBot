@@ -787,11 +787,11 @@ def handle_message(event):
     sound = AudioSegment.from_file(path1,format="m4a")
     sound.export(path2, format="wav")
     rec = sr.AudioFile(path2)
-    got_message = ""
     with rec as source:
         audio = recognizer.record(source)
         try:
             got_message = recognizer.recognize_google(audio)
+            print(got_message)
         except sr.RequestError as e:  
             print("error; {0}".format(e))
         except Exception as e:
