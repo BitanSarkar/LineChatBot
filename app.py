@@ -456,6 +456,7 @@ def handle_message(event):
             elif "cancel" in got_message:
                 userData[user_id] = {
                     "message": "cancel_confirm",
+                    "choice": choice,
                     "is_required": True
                 }
                 line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text="abc", contents={
@@ -506,7 +507,7 @@ def handle_message(event):
                 }
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
         if last_message_info["is_required"] and last_message_info["message"] == "cancel_confirm":
-            choice = [int(s) for s in re.findall(r'-?\d+\.?\d*', got_message)][0]
+            choice = last_message_info["choice"]
             image_url = ["https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.06.48+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hack/WhatsApp+Image+2022-11-22+at+12.08.50+PM.jpeg", "https://akhil9811bucket.s3.amazonaws.com/hotel/WhatsApp+Image+2022-11-22+at+12.59.20+PM.jpeg"]
             bookingIds = ["booking ID GUYU98983", "booking ID FFY348383","reservation ID YUI698HLL"]
             if "yes" in got_message or "yup" in got_message:
