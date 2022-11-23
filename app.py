@@ -52,7 +52,7 @@ def handle_postback_action(event):
     if user_id in userData and userData[user_id]["is_required"]:
         last_message_info = userData[user_id]
         if last_message_info["is_required"] and last_message_info["message"] == "When do you want to travel?":
-            date = event.postback.params.date
+            date = event.postback.params["date"]
             date_time = datetime.datetime.strptime(date, '%Y-%m-%d')
             userData[user_id] = {
                 "message": "In which city are you right now?",
