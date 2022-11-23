@@ -777,11 +777,13 @@ def handle_message(event):
     user_id = event.source.user_id
     message_content = line_bot_api.get_message_content(event.message.id)
     print(message_content.content)
-    with open(str(user_id)+".m4a", 'wb') as fd:
+    path1 = os.path.abspath(__file__)+"\\"+str(user_id)+".m4a"
+    path2 = os.path.abspath(__file__)+"\\"+str(user_id)+".wav"
+    with open(os.path.dirname(path1, 'wb')) as fd:
         for chunk in message_content.iter_content():
             fd.write(chunk)
-    sound = AudioSegment.from_file(str(user_id)+".m4a",format="m4a")
-    sound.export(str(user_id)+".wav", format="wav")
+    sound = AudioSegment.from_file(path1,format="m4a")
+    sound.export(path2, format="wav")
     rec = sr.AudioFile(str(user_id)+".wav")
     got_message = ""
     with rec as source:
