@@ -785,7 +785,7 @@ def handle_message(event):
     fd.close()
     sound = AudioSegment.from_file(path1,format="m4a")
     sound.export(path2, format="wav")
-    rec = sr.AudioFile(str(user_id)+".wav")
+    rec = sr.AudioFile(path2)
     got_message = ""
     with rec as source:
         audio = recognizer.record(source)
