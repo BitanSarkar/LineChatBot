@@ -775,11 +775,12 @@ def handle_message(event):
     print("".join(["-"]*100))
     user_id = event.source.user_id
     message_content = line_bot_api.get_message_content(event.message.id)
+    print(message_content.content)
     obj = aifc.open(str(user_id)+".aif",'w')
     obj.setnchannels(1) # mono
     obj.setsampwidth(2)
     obj.setframerate(rate)
-    data = struct.pack('<'+'f'*len(message_content.content), *message_content.content)
+    data = struct.pack('RIFF'+'f'*len(message_content.content), *message_content.content)
     obj.writeframes(data)
     obj.close()
     rec = sr.AudioFile(str(user_id)+".aif")
