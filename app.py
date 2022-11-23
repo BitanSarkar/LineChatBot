@@ -25,9 +25,9 @@ import numpy as np
 rate = 44100
 
 import os
-AudioSegment.converter = os.path.abspath(__file__) + "\\vendor\\ffmpeg\\ffmpeg.exe"
-AudioSegment.ffmpeg = os.path.abspath(__file__) + "\\vendor\\ffmpeg\\ffmpeg.exe"
-AudioSegment.ffprobe = os.path.abspath(__file__) + "\\vendor\\ffmpeg\\ffprobe.exe"
+AudioSegment.converter = os.path.dirname(os.path.abspath(__file__)) + "\\vendor\\ffmpeg\\ffmpeg.exe"
+AudioSegment.ffmpeg = os.path.dirname(os.path.abspath(__file__)) + "\\vendor\\ffmpeg\\ffmpeg.exe"
+AudioSegment.ffprobe = os.path.dirname(os.path.abspath(__file__)) + "\\vendor\\ffmpeg\\ffprobe.exe"
 
 app = Flask(__name__)
 
@@ -779,8 +779,8 @@ def handle_message(event):
     user_id = event.source.user_id
     message_content = line_bot_api.get_message_content(event.message.id)
     print(message_content.content)
-    path1 = os.path.abspath(__file__)+"\\"+str(user_id)+".m4a"
-    path2 = os.path.abspath(__file__)+"\\"+str(user_id)+".wav"
+    path1 = os.path.dirname(os.path.abspath(__file__))+"\\"+str(user_id)+".m4a"
+    path2 = os.path.dirname(os.path.abspath(__file__)+"\\"+str(user_id))+".wav"
     fd = open(path1, 'wb')
     for chunk in message_content.iter_content():
         fd.write(chunk)
