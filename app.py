@@ -793,12 +793,13 @@ def handle_message(event):
     sound = AudioSegment.from_file(path1,format="m4a")
     sound.export(path2, format="wav")
     song = AudioSegment.from_wav(path2)
-    song = song + 15
+    song = song + 20
     song.export(path2, "wav")
     rec = sr.AudioFile(path2)
     with rec as source:
         audio = recognizer.record(source)
         try:
+            recognizer.adjust_for_ambient_noise(source, duration=event.message.duration/1000)
             got_message = recognizer.recognize_google(audio, show_all=True)        
             got_message_best = got_message["alternative"][0]["transcript"]
             print(got_message)
