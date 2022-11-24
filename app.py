@@ -803,6 +803,7 @@ def handle_message(event):
             got_message = recognizer.recognize_google(audio, show_all=True)        
             got_message_best = got_message["alternative"][0]["transcript"]
             print(got_message)
+            got_message = " ".join([trans["transcript"] for trans in got_message["alternative"]]).lower().strip()
         except sr.RequestError as e:
             got_message = "hello 9494"
             print("error; {0}".format(e))
@@ -813,7 +814,6 @@ def handle_message(event):
             print ("error; {0}".format(e))
             # line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to saying! \U0001f615 \nCan you please speak clearly!"))
             # return
-        got_message = " ".join([trans["transcript"] for trans in got_message["alternative"]]).lower().strip()
         print(got_message)
         last_message_info = {}
         if user_id in userData and userData[user_id]["is_required"]:
