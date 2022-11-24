@@ -793,7 +793,7 @@ def handle_message(event):
     sound = AudioSegment.from_file(path1,format="m4a")
     sound.export(path2, format="wav")
     song = AudioSegment.from_wav(path2)
-    song = song + 50
+    song = song + 15
     song.export(path2, "wav")
     rec = sr.AudioFile(path2)
     with rec as source:
