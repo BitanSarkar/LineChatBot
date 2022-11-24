@@ -794,6 +794,7 @@ def handle_message(event):
     sound.export(path2, format="wav")
     rec = sr.AudioFile(path2)
     with rec as source:
+        recognizer.adjust_for_ambient_noise(source=source, duration=(4000 if event.message.duration==None else event.message.duration)/1000)
         audio = recognizer.record(source)
         try:
             got_message = recognizer.recognize_google(audio, show_all=True)        
