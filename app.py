@@ -668,11 +668,16 @@ def handle_message(event):
         if last_message_info["is_required"] and last_message_info["message"] == "feedback_time":
             rating = [int(s) for s in re.findall(r'-?\d+\.?\d*', got_message)][0]
             userData[user_id] = {
-                "message": "" if rating >= 5 else "feedback_time",
+                "message": "" if rating >= 5 else "feedback_recheck",
                 "is_required": rating<5
             }
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Thank you for your feedback \U0001f9e1 \U0001f9e1 \U0001f9e1" if rating >=5 else "Please provide a feedback about what went wrong? \U0001f97a"))
-
+        if last_message_info["is_required"] and last_message_info["message"] == "feedback_recheck":
+            userData[user_id] = {
+                "message": "",
+                "is_required": False
+            }
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Thank you for your feedback, we will try to make this perfect for you! \U0001f9e1 \U0001f9e1 \U0001f9e1"))
     else:
         if "hey" in got_message or "hello" in got_message  or "hi" in got_message :
             userData[user_id] = {
@@ -791,14 +796,19 @@ def handle_message(event):
     with rec as source:
         audio = recognizer.record(source)
         try:
-            got_message = recognizer.recognize_google(audio, show_all=True)
+            got_message = recognizer.recognize_google(audio, show_all=True)        
+            got_message_best = got_message["alternative"][0]["transcript"]
             print(got_message)
         except sr.RequestError as e:
             got_message = ""
             print("error; {0}".format(e))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to saying! \U0001f615 \nCan you please speak clearly!"))
+            return
         except Exception as e:
             got_message = ""
             print ("error; {0}".format(e))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to saying! \U0001f615 \nCan you please speak clearly!"))
+            return
         got_message_best = got_message["alternative"][0]["transcript"]
         got_message = " ".join([trans["transcript"] for trans in got_message["alternative"]]).lower().strip()
         print(got_message)
@@ -1385,10 +1395,16 @@ def handle_message(event):
             if last_message_info["is_required"] and last_message_info["message"] == "feedback_time":
                 rating = [int(s) for s in re.findall(r'-?\d+\.?\d*', got_message_best)][0]
                 userData[user_id] = {
+                    "message": "" if rating >= 5 else "feedback_recheck",
+                    "is_required": rating<5
+                }
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Thank you for your feedback \U0001f9e1 \U0001f9e1 \U0001f9e1" if rating >=5 else "Please provide a feedback about what went wrong? \U0001f97a"))
+            if last_message_info["is_required"] and last_message_info["message"] == "feedback_recheck":
+                userData[user_id] = {
                     "message": "",
                     "is_required": False
                 }
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Thank you for your feedback \U0001f9e1 \U0001f9e1 \U0001f9e1" if rating >=5 else "Please provide a feedback about what went wrong? \U0001f97a"))
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Thank you for your feedback, we will try to make this perfect for you! \U0001f9e1 \U0001f9e1 \U0001f9e1"))
         else:
             if "hey" in got_message or "hello" in got_message  or "hi" in got_message :
                 userData[user_id] = {
