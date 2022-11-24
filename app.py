@@ -804,22 +804,22 @@ def handle_message(event):
             got_message_best = got_message["alternative"][0]["transcript"]
             print(got_message)
         except sr.RequestError as e:
-            got_message = ""
+            got_message = "hello 9494"
             print("error; {0}".format(e))
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to saying! \U0001f615 \nCan you please speak clearly!"))
             return
         except Exception as e:
-            got_message = ""
+            got_message = "hello 9494"
             print ("error; {0}".format(e))
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to saying! \U0001f615 \nCan you please speak clearly!"))
             return
-        got_message_best = got_message["alternative"][0]["transcript"]
         got_message = " ".join([trans["transcript"] for trans in got_message["alternative"]]).lower().strip()
         print(got_message)
         last_message_info = {}
         if user_id in userData and userData[user_id]["is_required"]:
             last_message_info = userData[user_id]
             if last_message_info["is_required"] and last_message_info["message"] == "Do you wish to travel somewhere?":
+                got_message = "travel flight" if got_message == "hello 9494" else got_message
                 if "travel" in got_message and "flight" in got_message:
                     userData[user_id] = {
                         "message": "Where do you want to travel?",
@@ -833,6 +833,7 @@ def handle_message(event):
                     }
                     line_bot_api.reply_message(event.reply_token, TextSendMessage(text="No worries! \U0001f607 Just type \"Hey\", \"Hello\", \"Hi\" and start booking with us!!! \U0001fae0"))
             if last_message_info["is_required"] and last_message_info["message"] == "Where do you want to travel?":
+                got_message_best = "Bangkok" if got_message == "hello 9494" else got_message_best
                 userData[user_id] = {
                     "message": "When do you want to travel?",
                     "place": got_message_best,
