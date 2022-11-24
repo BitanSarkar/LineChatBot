@@ -806,13 +806,13 @@ def handle_message(event):
         except sr.RequestError as e:
             got_message = "hello 9494"
             print("error; {0}".format(e))
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to saying! \U0001f615 \nCan you please speak clearly!"))
-            return
+            # line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to saying! \U0001f615 \nCan you please speak clearly!"))
+            # return
         except Exception as e:
             got_message = "hello 9494"
             print ("error; {0}".format(e))
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to saying! \U0001f615 \nCan you please speak clearly!"))
-            return
+            # line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Can't understand what you are trying to saying! \U0001f615 \nCan you please speak clearly!"))
+            # return
         got_message = " ".join([trans["transcript"] for trans in got_message["alternative"]]).lower().strip()
         print(got_message)
         last_message_info = {}
